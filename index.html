@@ -1,899 +1,1038 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#080b12">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, viewport-fit=cover"
-  >
+<title>PickZone AI</title>
 
-  <meta name="theme-color" content="#080b12">
+<style>
+*{box-sizing:border-box}
 
-  <meta
-    name="apple-mobile-web-app-capable"
-    content="yes"
-  >
+html,body{
+  margin:0;
+  background:#080b12;
+  color:#fff;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
 
-  <meta
-    name="apple-mobile-web-app-status-bar-style"
-    content="black-translucent"
-  >
+body{
+  min-height:100vh;
+}
 
-  <title>PickZone AI</title>
+.app{
+  max-width:520px;
+  margin:auto;
+  padding:
+    calc(22px + env(safe-area-inset-top))
+    18px
+    calc(110px + env(safe-area-inset-bottom));
+}
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:28px;
+}
 
-    html {
-      background: #080b12;
-    }
+.logo{
+  font-size:25px;
+  font-weight:850;
+  letter-spacing:-.8px;
+}
 
-    body {
-      margin: 0;
-      background: #080b12;
-      color: #ffffff;
-      font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        sans-serif;
-    }
+.logo span{
+  color:#8d75ff;
+}
 
-    button,
-    input {
-      font: inherit;
-    }
+.avatar{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  background:#7c5cff;
+  display:grid;
+  place-items:center;
+  font-weight:800;
+}
 
-    .app {
-      max-width: 520px;
-      margin: auto;
-      padding:
-        calc(22px + env(safe-area-inset-top))
-        18px
-        calc(110px + env(safe-area-inset-bottom));
-    }
+.small{
+  color:#8991a5;
+  font-size:13px;
+}
 
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 28px;
-    }
+h1{
+  font-size:30px;
+  margin:5px 0;
+  letter-spacing:-1px;
+}
 
-    .logo {
-      font-size: 25px;
-      font-weight: 800;
-      letter-spacing: -0.7px;
-    }
+h2{
+  margin:0;
+}
 
-    .logo span {
-      color: #8d75ff;
-    }
+.search{
+  width:100%;
+  margin-top:20px;
+  padding:15px 17px;
+  border-radius:14px;
+  border:1px solid #282e40;
+  background:#11151f;
+  color:white;
+  font-size:16px;
+  outline:none;
+}
 
-    .avatar {
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      background: #7c5cff;
-      display: grid;
-      place-items: center;
-      font-weight: 800;
-    }
+.search:focus{
+  border-color:#7c5cff;
+}
 
-    .small {
-      color: #8991a5;
-      font-size: 13px;
-    }
+.status{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-top:8px;
+  color:#8991a5;
+  font-size:13px;
+}
 
-    h1 {
-      font-size: 30px;
-      margin: 5px 0;
-      letter-spacing: -1px;
-    }
+.dot{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:#4bd69c;
+}
 
-    h2 {
-      margin: 6px 0 12px;
-    }
+.hero{
+  margin:22px 0;
+  padding:20px;
+  border-radius:22px;
+  border:1px solid #242a3b;
+  background:linear-gradient(135deg,#191d2d,#10131d);
+}
 
-    .search {
-      width: 100%;
-      padding: 15px 17px;
-      margin-top: 20px;
-      border-radius: 14px;
-      border: 1px solid #282e40;
-      background: #11151f;
-      color: white;
-      font-size: 16px;
-      outline: none;
-    }
+.hero-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
 
-    .search:focus {
-      border-color: #7c5cff;
-    }
+.badge{
+  background:#272044;
+  color:#aa98ff;
+  padding:6px 9px;
+  border-radius:9px;
+  font-size:12px;
+  font-weight:750;
+}
 
-    .hero {
-      background:
-        linear-gradient(
-          135deg,
-          #191d2d,
-          #10131d
-        );
+.hero-score{
+  font-size:50px;
+  line-height:1;
+  font-weight:850;
+  color:#8d75ff;
+  margin-top:18px;
+}
 
-      border: 1px solid #242a3b;
-      border-radius: 22px;
-      padding: 20px;
-      margin: 22px 0;
-    }
+.score-label{
+  margin-top:6px;
+}
 
-    .hero-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+.hero-name{
+  font-size:20px;
+  font-weight:750;
+  margin-top:6px;
+}
 
-    .badge {
-      background: #272044;
-      color: #aa98ff;
-      padding: 6px 9px;
-      border-radius: 9px;
-      font-size: 12px;
-      font-weight: 700;
-    }
+.factors{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+  margin-top:17px;
+}
 
-    .score {
-      font-size: 46px;
-      font-weight: 850;
-      color: #8d75ff;
-      line-height: 1;
-      margin-top: 18px;
-    }
+.factor{
+  background:#171c28;
+  padding:12px;
+  border-radius:12px;
+  color:#8991a5;
+  font-size:13px;
+}
 
-    .score-note {
-      margin-top: 7px;
-    }
+.factor b{
+  display:block;
+  margin-top:4px;
+  color:#fff;
+  font-size:20px;
+}
 
-    .demo-warning {
-      margin-top: 13px;
-      padding: 10px 12px;
-      background: #181c28;
-      border-radius: 11px;
-      color: #aab0c0;
-      font-size: 12px;
-      line-height: 1.45;
-    }
+.factor-wide{
+  grid-column:1 / -1;
+}
 
-    .factors {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 9px;
-      margin-top: 16px;
-    }
+.note{
+  margin-top:14px;
+  padding:11px 12px;
+  border-radius:11px;
+  background:#151925;
+  color:#8991a5;
+  font-size:12px;
+  line-height:1.5;
+}
 
-    .factor {
-      background: #171c28;
-      padding: 12px;
-      border-radius: 12px;
-      color: #8991a5;
-      font-size: 13px;
-    }
+.section{
+  margin-top:30px;
+}
 
-    .factor b {
-      display: block;
-      color: #ffffff;
-      font-size: 19px;
-      margin-top: 4px;
-    }
+.section-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:12px;
+}
 
-    .section {
-      margin-top: 29px;
-    }
+.card{
+  background:#11151f;
+  border:1px solid #242a3b;
+  border-radius:18px;
+  padding:16px;
+  margin:10px 0;
+}
 
-    .section-title {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-    }
+.stock{
+  cursor:pointer;
+}
 
-    .section-title h2 {
-      margin: 0;
-    }
+.stock-main{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+}
 
-    .card {
-      background: #11151f;
-      border: 1px solid #242a3b;
-      border-radius: 18px;
-      padding: 16px;
-      margin: 10px 0;
-    }
+.stock-left{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-width:0;
+}
 
-    .stock {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-    }
+.symbol{
+  width:48px;
+  height:48px;
+  flex-shrink:0;
+  border-radius:13px;
+  background:#202638;
+  display:grid;
+  place-items:center;
+  font-size:12px;
+  font-weight:850;
+}
 
-    .stock-left {
-      display: flex;
-      gap: 12px;
-      align-items: center;
-      min-width: 0;
-    }
+.company{
+  max-width:165px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  font-weight:750;
+}
 
-    .symbol {
-      width: 48px;
-      height: 48px;
-      flex-shrink: 0;
-      border-radius: 13px;
-      background: #202638;
-      display: grid;
-      place-items: center;
-      font-size: 12px;
-      font-weight: 850;
-    }
+.price{
+  text-align:right;
+  font-weight:750;
+  white-space:nowrap;
+}
 
-    .company {
-      font-weight: 750;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 180px;
-    }
+.change{
+  margin-top:4px;
+  font-size:13px;
+}
 
-    .price {
-      font-weight: 750;
-      text-align: right;
-      white-space: nowrap;
-    }
+.up{color:#4bd69c}
+.down{color:#ff6b7a}
+.neutral{color:#8991a5}
 
-    .change {
-      font-size: 13px;
-      margin-top: 4px;
-    }
+.stock-bottom{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:14px;
+  padding-top:13px;
+  border-top:1px solid #242a3b;
+}
 
-    .up {
-      color: #4bd69c;
-    }
+.score-pill{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
 
-    .down {
-      color: #ff6b7a;
-    }
+.score-circle{
+  width:39px;
+  height:39px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:#272044;
+  color:#b4a5ff;
+  font-weight:850;
+}
 
-    .neutral {
-      color: #8991a5;
-    }
+.rank{
+  color:#8991a5;
+  font-size:12px;
+}
 
-    .status {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: #8991a5;
-      font-size: 13px;
-      margin-top: 7px;
-    }
+.details{
+  display:none;
+  margin-top:14px;
+  padding-top:14px;
+  border-top:1px solid #242a3b;
+}
 
-    .status-dot {
-      width: 7px;
-      height: 7px;
-      background: #4bd69c;
-      border-radius: 50%;
-    }
+.stock.open .details{
+  display:block;
+}
 
-    .error {
-      color: #ff8d98;
-      line-height: 1.5;
-    }
+.detail-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+}
 
-    .info-card b {
-      display: block;
-      margin-bottom: 7px;
-    }
+.detail{
+  padding:10px;
+  background:#171c28;
+  border-radius:11px;
+  color:#8991a5;
+  font-size:12px;
+}
 
-    .info-card p {
-      margin: 0;
-      line-height: 1.55;
-    }
+.detail b{
+  display:block;
+  margin-top:4px;
+  color:#fff;
+  font-size:17px;
+}
 
-    nav {
-      position: fixed;
-      z-index: 10;
-      bottom: 0;
-      left: 0;
-      right: 0;
+.loading{
+  text-align:center;
+  padding:25px;
+  color:#8991a5;
+}
 
-      background: rgba(13, 16, 24, 0.94);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
+.error{
+  color:#ff8d98;
+  line-height:1.5;
+}
 
-      border-top: 1px solid #242a3b;
+.info p{
+  margin:7px 0 0;
+  line-height:1.55;
+}
 
-      padding:
-        12px
-        15px
-        calc(14px + env(safe-area-inset-bottom));
+nav{
+  position:fixed;
+  z-index:20;
+  bottom:0;
+  left:0;
+  right:0;
+  display:flex;
+  justify-content:space-around;
+  padding:
+    12px 15px
+    calc(14px + env(safe-area-inset-bottom));
+  border-top:1px solid #242a3b;
+  background:rgba(13,16,24,.94);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+}
 
-      display: flex;
-      justify-content: space-around;
-    }
+nav button{
+  min-width:65px;
+  border:0;
+  background:none;
+  color:#8991a5;
+  font-size:11px;
+}
 
-    nav button {
-      border: 0;
-      background: none;
-      color: #8991a5;
-      font-size: 11px;
-      min-width: 65px;
-    }
+nav .icon{
+  display:block;
+  margin-bottom:3px;
+  font-size:20px;
+}
 
-    nav .icon {
-      display: block;
-      font-size: 20px;
-      margin-bottom: 3px;
-    }
+nav .active{
+  color:#9b86ff;
+}
 
-    nav .active {
-      color: #9b86ff;
-    }
-
-    .loading {
-      text-align: center;
-      padding: 24px;
-      color: #8991a5;
-    }
-
-    @media (max-width: 380px) {
-      .company {
-        max-width: 135px;
-      }
-
-      .app {
-        padding-left: 14px;
-        padding-right: 14px;
-      }
-    }
-  </style>
+@media(max-width:380px){
+  .company{max-width:125px}
+  .app{
+    padding-left:14px;
+    padding-right:14px;
+  }
+}
+</style>
 </head>
 
 <body>
 
-  <div class="app">
+<div class="app">
 
-    <header>
-      <div class="logo">
-        PickZone <span>AI</span>
-      </div>
+<header>
+  <div class="logo">
+    PickZone <span>AI</span>
+  </div>
 
-      <div class="avatar">
-        PZ
-      </div>
-    </header>
+  <div class="avatar">PZ</div>
+</header>
 
+<div class="small">PICKZONE MARKTÜBERSICHT</div>
+
+<h1>Top Picks</h1>
+
+<div class="status">
+  <span class="dot"></span>
+  Marktdaten & PickZone Score
+</div>
+
+<input
+  id="search"
+  class="search"
+  type="search"
+  placeholder="Aktie oder Symbol suchen …"
+  autocomplete="off"
+>
+
+<div class="hero">
+
+  <div class="hero-top">
     <div class="small">
-      MARKTÜBERSICHT
+      HÖCHSTER GELADENER SCORE
     </div>
 
-    <h1>
-      Deine AI Picks
-    </h1>
+    <div class="badge">
+      Score v1
+    </div>
+  </div>
 
-    <div class="status">
-      <span class="status-dot"></span>
-      Echte Marktdaten über PickZone API
+  <div id="heroScore" class="hero-score">
+    —
+  </div>
+
+  <div class="small score-label">
+    PickZone Score / 100
+  </div>
+
+  <div id="heroName" class="hero-name">
+    Daten werden geladen …
+  </div>
+
+  <div class="factors">
+
+    <div class="factor">
+      Value
+      <b id="heroValue">—</b>
     </div>
 
-    <input
-      class="search"
-      id="search"
-      type="search"
-      placeholder="Aktie oder Symbol suchen …"
-      autocomplete="off"
-    >
-
-    <div class="hero">
-
-      <div class="hero-top">
-
-        <div class="small">
-          PICKZONE STRATEGIE
-        </div>
-
-        <div class="badge">
-          Beta
-        </div>
-
-      </div>
-
-      <h2>
-        Balanced AI
-      </h2>
-
-      <div class="score">
-        —
-      </div>
-
-      <div class="small score-note">
-        PickZone Score
-      </div>
-
-      <div class="demo-warning">
-        Der AI-Score wird erst aktiviert, wenn
-        Fundamentaldaten, Momentum und Risiko
-        vollständig in das PickZone-Modell
-        eingebunden sind.
-      </div>
-
-      <div class="factors">
-
-        <div class="factor">
-          Value
-          <b>—</b>
-        </div>
-
-        <div class="factor">
-          Quality
-          <b>—</b>
-        </div>
-
-        <div class="factor">
-          Growth
-          <b>—</b>
-        </div>
-
-        <div class="factor">
-          Momentum
-          <b>—</b>
-        </div>
-
-      </div>
-
+    <div class="factor">
+      Quality
+      <b id="heroQuality">—</b>
     </div>
 
-
-    <div class="section">
-
-      <div class="section-title">
-
-        <h2>
-          Markt
-        </h2>
-
-        <span class="badge">
-          Live-Daten
-        </span>
-
-      </div>
-
-      <div id="stocks">
-
-        <div class="card loading">
-          Börsendaten werden geladen …
-        </div>
-
-      </div>
-
+    <div class="factor">
+      Growth
+      <b id="heroGrowth">—</b>
     </div>
 
+    <div class="factor">
+      Momentum
+      <b id="heroMomentum">—</b>
+    </div>
 
-    <div class="section">
-
-      <h2>
-        PickZone AI
-      </h2>
-
-      <div class="card info-card">
-
-        <b>
-          Echte Börsendaten
-        </b>
-
-        <p class="small">
-          Kurse und Marktinformationen werden
-          über das geschützte PickZone-Backend
-          geladen.
-        </p>
-
-      </div>
-
-      <div class="card info-card">
-
-        <b>
-          5-Faktor-Modell
-        </b>
-
-        <p class="small">
-          Die nächste Ausbaustufe bewertet Aktien
-          anhand von Value, Quality, Growth,
-          Momentum und Risk.
-        </p>
-
-      </div>
-
-      <div class="card info-card">
-
-        <b>
-          Transparente Scores
-        </b>
-
-        <p class="small">
-          PickZone zeigt nur Scores an, die aus
-          tatsächlich verfügbaren Finanzdaten
-          berechnet wurden.
-        </p>
-
-      </div>
-
+    <div class="factor factor-wide">
+      Risk
+      <b id="heroRisk">—</b>
     </div>
 
   </div>
 
+  <div class="note">
+    Der PickZone Score ist ein regelbasierter
+    Modellscore aus verfügbaren Finanz- und
+    Kursdaten. Er ist keine Garantie für zukünftige
+    Renditen und keine individuelle Anlageberatung.
+  </div>
 
-  <nav>
-
-    <button class="active">
-      <span class="icon">⌂</span>
-      Home
-    </button>
-
-    <button>
-      <span class="icon">⌕</span>
-      Entdecken
-    </button>
-
-    <button>
-      <span class="icon">★</span>
-      Watchlist
-    </button>
-
-    <button>
-      <span class="icon">◉</span>
-      Strategien
-    </button>
-
-  </nav>
+</div>
 
 
-  <script>
+<div class="section">
 
-    const symbols = [
-      "AAPL",
-      "NVDA",
-      "MSFT",
-      "GOOGL",
-      "AMZN"
-    ];
+  <div class="section-title">
+    <h2>Ranking</h2>
 
-    let stocks = [];
+    <span class="badge">
+      0–100
+    </span>
+  </div>
+
+  <div id="stocks">
+
+    <div class="card loading">
+      Kurse und Scores werden geladen …
+    </div>
+
+  </div>
+
+</div>
 
 
-    function formatMoney(value) {
+<div class="section">
 
-      const number = Number(value);
+  <h2>Methodik</h2>
 
-      if (!Number.isFinite(number)) {
-        return "—";
-      }
+  <div class="card info">
+    <b>Value</b>
+    <p class="small">
+      Bewertungskennzahlen wie KGV und
+      Kurs-Buchwert-Verhältnis.
+    </p>
+  </div>
 
-      return new Intl.NumberFormat(
-        "de-DE",
-        {
-          style: "currency",
-          currency: "USD",
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2
-        }
-      ).format(number);
+  <div class="card info">
+    <b>Quality</b>
+    <p class="small">
+      Profitabilität, Margen, Verschuldung
+      und Liquidität.
+    </p>
+  </div>
 
+  <div class="card info">
+    <b>Growth</b>
+    <p class="small">
+      Umsatz- und Gewinnwachstum aus den
+      verfügbaren Unternehmensdaten.
+    </p>
+  </div>
+
+  <div class="card info">
+    <b>Momentum & Risk</b>
+    <p class="small">
+      Historische Kursentwicklung und
+      annualisierte Volatilität. Ein höherer
+      Risk-Score bedeutet in diesem Modell
+      geringeres historisches Risiko.
+    </p>
+  </div>
+
+</div>
+
+</div>
+
+
+<nav>
+
+<button class="active">
+  <span class="icon">⌂</span>
+  Home
+</button>
+
+<button>
+  <span class="icon">⌕</span>
+  Entdecken
+</button>
+
+<button>
+  <span class="icon">★</span>
+  Watchlist
+</button>
+
+<button>
+  <span class="icon">◉</span>
+  Strategien
+</button>
+
+</nav>
+
+
+<script>
+
+const symbols = [
+  "AAPL",
+  "NVDA",
+  "MSFT",
+  "GOOGL",
+  "AMZN"
+];
+
+let stocks = [];
+
+
+function escapeHTML(value){
+
+  return String(value ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+function money(value){
+
+  const number = Number(value);
+
+  if(!Number.isFinite(number)){
+    return "—";
+  }
+
+  return new Intl.NumberFormat(
+    "de-DE",
+    {
+      style:"currency",
+      currency:"USD",
+      minimumFractionDigits:2,
+      maximumFractionDigits:2
     }
+  ).format(number);
+
+}
 
 
-    function formatPercent(value) {
+function percent(value){
 
-      const number = Number(value);
+  const number = Number(value);
 
-      if (!Number.isFinite(number)) {
-        return "—";
-      }
+  if(!Number.isFinite(number)){
+    return "—";
+  }
 
-      const sign =
-        number > 0
-          ? "+"
-          : "";
+  const sign =
+    number > 0 ? "+" : "";
 
-      return (
-        sign +
-        number.toFixed(2)
-          .replace(".", ",") +
-        " %"
-      );
+  return (
+    sign +
+    number.toFixed(2).replace(".",",") +
+    " %"
+  );
 
-    }
+}
 
 
-    function getChangeClass(value) {
+function changeClass(value){
 
-      const number = Number(value);
+  const number = Number(value);
 
-      if (!Number.isFinite(number)) {
-        return "neutral";
-      }
+  if(!Number.isFinite(number)){
+    return "neutral";
+  }
 
-      if (number > 0) {
-        return "up";
-      }
+  if(number > 0){
+    return "up";
+  }
 
-      if (number < 0) {
-        return "down";
-      }
+  if(number < 0){
+    return "down";
+  }
 
-      return "neutral";
+  return "neutral";
 
-    }
-
-
-    function escapeHTML(value) {
-
-      return String(value ?? "")
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
-
-    }
+}
 
 
-    function render(list) {
+function score(value){
 
-      const container =
-        document.getElementById("stocks");
+  const number = Number(value);
 
-      if (!list.length) {
+  return Number.isFinite(number)
+    ? Math.round(number)
+    : "—";
 
-        container.innerHTML = `
-          <div class="card">
-            Keine Aktien gefunden.
-          </div>
-        `;
+}
 
-        return;
 
-      }
+function updateHero(stock){
 
-      container.innerHTML =
-        list.map(stock => {
+  if(!stock){
+    return;
+  }
 
-          const symbol =
-            escapeHTML(stock.symbol);
+  document.getElementById("heroScore")
+    .textContent =
+      score(stock.scores?.total);
 
-          const name =
-            escapeHTML(
-              stock.name ||
-              stock.symbol
-            );
+  document.getElementById("heroName")
+    .textContent =
+      `${stock.name || stock.symbol} · ${stock.symbol}`;
 
-          const changeClass =
-            getChangeClass(
-              stock.changePercentage
-            );
+  document.getElementById("heroValue")
+    .textContent =
+      score(stock.scores?.value);
 
-          return `
-            <div class="card stock">
+  document.getElementById("heroQuality")
+    .textContent =
+      score(stock.scores?.quality);
 
-              <div class="stock-left">
+  document.getElementById("heroGrowth")
+    .textContent =
+      score(stock.scores?.growth);
 
-                <div class="symbol">
-                  ${symbol}
-                </div>
+  document.getElementById("heroMomentum")
+    .textContent =
+      score(stock.scores?.momentum);
 
-                <div>
+  document.getElementById("heroRisk")
+    .textContent =
+      score(stock.scores?.risk);
 
-                  <div class="company">
-                    ${name}
-                  </div>
+}
 
-                  <div class="small">
-                    ${symbol}
-                  </div>
 
-                </div>
+function render(list){
 
+  const container =
+    document.getElementById("stocks");
+
+  if(!list.length){
+
+    container.innerHTML = `
+      <div class="card">
+        Keine Aktie gefunden.
+      </div>
+    `;
+
+    return;
+  }
+
+
+  container.innerHTML =
+    list.map((stock,index)=>{
+
+      const symbol =
+        escapeHTML(stock.symbol);
+
+      const name =
+        escapeHTML(
+          stock.name || stock.symbol
+        );
+
+      const total =
+        score(stock.scores?.total);
+
+      return `
+        <div
+          class="card stock"
+          onclick="this.classList.toggle('open')"
+        >
+
+          <div class="stock-main">
+
+            <div class="stock-left">
+
+              <div class="symbol">
+                ${symbol}
               </div>
 
+              <div>
 
-              <div class="price">
+                <div class="company">
+                  ${name}
+                </div>
 
-                ${formatMoney(stock.price)}
-
-                <div
-                  class="change ${changeClass}"
-                >
-                  ${formatPercent(
-                    stock.changePercentage
-                  )}
+                <div class="small">
+                  ${symbol}
                 </div>
 
               </div>
 
             </div>
-          `;
-
-        }).join("");
-
-    }
 
 
-    async function loadStock(symbol) {
+            <div class="price">
 
-      const response =
-        await fetch(
-          `/api/stock?symbol=${
-            encodeURIComponent(symbol)
-          }`,
-          {
-            cache: "no-store"
-          }
-        );
+              ${money(stock.price)}
 
-      if (!response.ok) {
+              <div
+                class="change ${changeClass(
+                  stock.changePercentage
+                )}"
+              >
+                ${percent(
+                  stock.changePercentage
+                )}
+              </div>
 
-        let message =
-          `Fehler bei ${symbol}`;
+            </div>
 
-        try {
-
-          const errorData =
-            await response.json();
-
-          if (errorData.error) {
-            message =
-              errorData.error;
-          }
-
-        } catch (_) {}
-
-        throw new Error(message);
-
-      }
-
-      return response.json();
-
-    }
+          </div>
 
 
-    async function loadStocks() {
+          <div class="stock-bottom">
 
-      const container =
-        document.getElementById("stocks");
+            <div class="score-pill">
 
-      container.innerHTML = `
-        <div class="card loading">
-          Echte Börsendaten werden geladen …
+              <div class="score-circle">
+                ${total}
+              </div>
+
+              <div>
+                <b>PickZone</b>
+                <div class="small">
+                  Score / 100
+                </div>
+              </div>
+
+            </div>
+
+            <div class="rank">
+              #${index + 1}
+            </div>
+
+          </div>
+
+
+          <div class="details">
+
+            <div class="detail-grid">
+
+              <div class="detail">
+                Value
+                <b>
+                  ${score(
+                    stock.scores?.value
+                  )}
+                </b>
+              </div>
+
+              <div class="detail">
+                Quality
+                <b>
+                  ${score(
+                    stock.scores?.quality
+                  )}
+                </b>
+              </div>
+
+              <div class="detail">
+                Growth
+                <b>
+                  ${score(
+                    stock.scores?.growth
+                  )}
+                </b>
+              </div>
+
+              <div class="detail">
+                Momentum
+                <b>
+                  ${score(
+                    stock.scores?.momentum
+                  )}
+                </b>
+              </div>
+
+              <div class="detail">
+                Risk
+                <b>
+                  ${score(
+                    stock.scores?.risk
+                  )}
+                </b>
+              </div>
+
+              <div class="detail">
+                6M Momentum
+                <b>
+                  ${percent(
+                    stock.marketFactors
+                      ?.momentum6m
+                  )}
+                </b>
+              </div>
+
+            </div>
+
+          </div>
+
         </div>
       `;
 
-      try {
+    }).join("");
 
-        const results =
-          await Promise.allSettled(
-            symbols.map(
-              symbol =>
-                loadStock(symbol)
-            )
-          );
-
-        stocks =
-          results
-            .filter(
-              result =>
-                result.status ===
-                "fulfilled"
-            )
-            .map(
-              result =>
-                result.value
-            );
+}
 
 
-        if (!stocks.length) {
+async function loadStock(symbol){
 
-          throw new Error(
-            "Keine Börsendaten konnten geladen werden."
-          );
-
-        }
-
-
-        render(stocks);
-
-
-        const failed =
-          results.filter(
-            result =>
-              result.status ===
-              "rejected"
-          );
-
-
-        if (failed.length) {
-
-          console.warn(
-            "Einige Aktien konnten nicht geladen werden:",
-            failed
-          );
-
-        }
-
-      } catch (error) {
-
-        console.error(error);
-
-        container.innerHTML = `
-          <div class="card error">
-            Börsendaten konnten gerade nicht
-            geladen werden. Bitte versuche es
-            später erneut.
-          </div>
-        `;
-
+  const response =
+    await fetch(
+      `/api/stock?symbol=${
+        encodeURIComponent(symbol)
+      }`,
+      {
+        cache:"no-store"
       }
+    );
+
+  if(!response.ok){
+    throw new Error(
+      `Fehler bei ${symbol}`
+    );
+  }
+
+  return response.json();
+
+}
+
+
+async function loadStocks(){
+
+  const container =
+    document.getElementById("stocks");
+
+  container.innerHTML = `
+    <div class="card loading">
+      Echte Börsendaten und Scores
+      werden geladen …
+    </div>
+  `;
+
+
+  try{
+
+    const results =
+      await Promise.allSettled(
+        symbols.map(
+          symbol =>
+            loadStock(symbol)
+        )
+      );
+
+
+    stocks =
+      results
+        .filter(
+          result =>
+            result.status ===
+            "fulfilled"
+        )
+        .map(
+          result =>
+            result.value
+        );
+
+
+    if(!stocks.length){
+
+      throw new Error(
+        "Keine Daten verfügbar."
+      );
 
     }
 
 
-    document
-      .getElementById("search")
-      .addEventListener(
-        "input",
-        event => {
+    stocks.sort((a,b)=>{
 
-          const query =
-            event.target.value
-              .trim()
-              .toLowerCase();
+      const scoreA =
+        Number(a.scores?.total);
 
+      const scoreB =
+        Number(b.scores?.total);
 
-          if (!query) {
+      const safeA =
+        Number.isFinite(scoreA)
+          ? scoreA
+          : -1;
 
-            render(stocks);
+      const safeB =
+        Number.isFinite(scoreB)
+          ? scoreB
+          : -1;
 
-            return;
+      return safeB - safeA;
 
-          }
-
-
-          const filtered =
-            stocks.filter(stock => {
-
-              const symbol =
-                String(
-                  stock.symbol || ""
-                ).toLowerCase();
-
-              const name =
-                String(
-                  stock.name || ""
-                ).toLowerCase();
-
-              return (
-                symbol.includes(query) ||
-                name.includes(query)
-              );
-
-            });
+    });
 
 
-          render(filtered);
+    updateHero(stocks[0]);
 
-        }
-      );
+    render(stocks);
 
 
-    loadStocks();
+  }catch(error){
 
-  </script>
+    console.error(error);
+
+    container.innerHTML = `
+      <div class="card error">
+        Die PickZone-Daten konnten gerade
+        nicht geladen werden. Bitte
+        aktualisiere die Seite später erneut.
+      </div>
+    `;
+
+  }
+
+}
+
+
+document
+  .getElementById("search")
+  .addEventListener(
+    "input",
+    event => {
+
+      const query =
+        event.target.value
+          .trim()
+          .toLowerCase();
+
+
+      if(!query){
+
+        render(stocks);
+        return;
+
+      }
+
+
+      const filtered =
+        stocks.filter(stock => {
+
+          const symbol =
+            String(
+              stock.symbol || ""
+            ).toLowerCase();
+
+          const name =
+            String(
+              stock.name || ""
+            ).toLowerCase();
+
+          return (
+            symbol.includes(query) ||
+            name.includes(query)
+          );
+
+        });
+
+
+      render(filtered);
+
+    }
+  );
+
+
+loadStocks();
+
+</script>
 
 </body>
 </html>
