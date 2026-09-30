@@ -1,7 +1,6 @@
 export default async function handler(req, res) {
 
-  const query = String(req.query.q || "")
-    .trim();
+  const query = String(req.query.q || "").trim();
 
   if (!query) {
     return res.status(200).json([]);
@@ -15,47 +14,106 @@ export default async function handler(req, res) {
     });
   }
 
-  try {
+  const base =
+    "https://financialmodelingprep.com/stable";
+
+  async function search(endpoint) {
 
     const url =
-      "https://financialmodelingprep.com/stable/search-symbol" +
-      "?query=" +
-      encodeURIComponent(query) +
-      "&limit=10" +
-      "&apikey=" +
-      encodeURIComponent(apiKey);
+      `${base}/${endpoint}` +
+      `?query=${encodeURIComponent(query)}` +
+      `&limit=10` +
+      `&apikey=${encodeURIComponent(apiKey)}`;
 
     const response = await fetch(url);
 
     if (!response.ok) {
-      throw new Error(
-        `FMP Fehler ${response.status}`
-      );
+      return [];
     }
 
     const data = await response.json();
 
-    if (!Array.isArray(data)) {
-      return res.status(200).json([]);
+    return Array.isArray(data)
+      ? data
+      : [];
+  }
+
+  try {
+
+    /*
+     * Gleichzeitig nach Firmenname
+     * und Börsensymbol suchen.
+     */
+    const [
+      nameResults,
+      symbolResults
+    ] = await Promise.all([
+
+      search("search-name"),
+
+      search("search-symbol")
+
+    ]);
+
+
+    /*
+     * Ergebnisse zusammenführen.
+     */
+    const combined = [
+      ...nameResults,
+      ...symbolResults
+    ];
+
+
+    /*
+     * Doppelte Symbole entfernen.
+     */
+    const unique = new Map();
+
+    for (const item of combined) {
+
+      if (!item?.symbol) {
+        continue;
+      }
+
+      if (!unique.has(item.symbol)) {
+
+        unique.set(
+          item.symbol,
+          {
+            symbol:
+              item.symbol,
+
+            name:
+              item.name ||
+              item.symbol,
+
+            exchange:
+              item.exchangeShortName ||
+              item.exchange ||
+              ""
+          }
+        );
+
+      }
+
     }
 
-    const results = data
-      .filter(item =>
-        item &&
-        item.symbol &&
-        item.name
-      )
-      .slice(0, 10)
-      .map(item => ({
-        symbol: item.symbol,
-        name: item.name,
-        exchange:
-          item.exchangeShortName ||
-          item.exchange ||
-          ""
-      }));
 
-    return res.status(200).json(results);
+    /*
+     * Maximal 10 Ergebnisse
+     * an PickZone senden.
+     */
+    const results =
+      Array.from(
+        unique.values()
+      ).slice(0, 10);
+
+
+    return res
+      .status(200)
+      .json(results);
+
 
   } catch (error) {
 
@@ -67,4 +125,5 @@ export default async function handler(req, res) {
     });
 
   }
+
 }
