@@ -1,256 +1,899 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#080b12">
-<title>PickZone AI</title>
+  <meta charset="UTF-8">
 
-<style>
-*{box-sizing:border-box}
-body{
- margin:0;
- background:#080b12;
- color:#fff;
- font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-}
-.app{
- max-width:520px;
- margin:auto;
- padding:22px 18px 100px;
-}
-header{
- display:flex;
- justify-content:space-between;
- align-items:center;
- margin-bottom:28px;
-}
-.logo{
- font-size:25px;
- font-weight:800;
-}
-.logo span{color:#7c5cff}
-.avatar{
- width:40px;height:40px;
- border-radius:50%;
- background:#7c5cff;
- display:grid;
- place-items:center;
- font-weight:700;
-}
-.small{color:#8991a5;font-size:13px}
-h1{font-size:30px;margin:5px 0}
-.hero{
- background:linear-gradient(135deg,#171b29,#10131d);
- border:1px solid #242a3b;
- border-radius:22px;
- padding:20px;
- margin:22px 0;
-}
-.score{
- font-size:42px;
- font-weight:800;
- color:#8d75ff;
-}
-.search{
- width:100%;
- padding:15px 17px;
- border-radius:14px;
- border:1px solid #282e40;
- background:#11151f;
- color:white;
- font-size:16px;
- outline:none;
-}
-.section{
- margin-top:27px;
-}
-.section-title{
- display:flex;
- justify-content:space-between;
- align-items:center;
- margin-bottom:12px;
-}
-.card{
- background:#11151f;
- border:1px solid #242a3b;
- border-radius:18px;
- padding:16px;
- margin:10px 0;
-}
-.stock{
- display:flex;
- align-items:center;
- justify-content:space-between;
-}
-.stock-left{
- display:flex;
- gap:12px;
- align-items:center;
-}
-.symbol{
- width:45px;height:45px;
- border-radius:12px;
- background:#202638;
- display:grid;
- place-items:center;
- font-weight:800;
-}
-.company{font-weight:700}
-.price{font-weight:700;text-align:right}
-.up{color:#4bd69c;font-size:13px}
-.badge{
- background:#272044;
- color:#aa98ff;
- padding:6px 9px;
- border-radius:9px;
- font-size:12px;
- font-weight:700;
-}
-.factors{
- display:grid;
- grid-template-columns:1fr 1fr;
- gap:9px;
- margin-top:14px;
-}
-.factor{
- background:#171c28;
- padding:11px;
- border-radius:12px;
-}
-.factor b{
- display:block;
- font-size:18px;
- margin-top:4px;
-}
-nav{
- position:fixed;
- bottom:0;
- left:0;right:0;
- background:#0d1018ee;
- backdrop-filter:blur(15px);
- border-top:1px solid #242a3b;
- padding:12px 15px 25px;
- display:flex;
- justify-content:space-around;
-}
-nav button{
- border:0;
- background:none;
- color:#8991a5;
- font-size:12px;
-}
-nav .active{color:#9b86ff}
-</style>
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
+  >
+
+  <meta name="theme-color" content="#080b12">
+
+  <meta
+    name="apple-mobile-web-app-capable"
+    content="yes"
+  >
+
+  <meta
+    name="apple-mobile-web-app-status-bar-style"
+    content="black-translucent"
+  >
+
+  <title>PickZone AI</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      background: #080b12;
+    }
+
+    body {
+      margin: 0;
+      background: #080b12;
+      color: #ffffff;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    .app {
+      max-width: 520px;
+      margin: auto;
+      padding:
+        calc(22px + env(safe-area-inset-top))
+        18px
+        calc(110px + env(safe-area-inset-bottom));
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 28px;
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: 800;
+      letter-spacing: -0.7px;
+    }
+
+    .logo span {
+      color: #8d75ff;
+    }
+
+    .avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: #7c5cff;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+    }
+
+    .small {
+      color: #8991a5;
+      font-size: 13px;
+    }
+
+    h1 {
+      font-size: 30px;
+      margin: 5px 0;
+      letter-spacing: -1px;
+    }
+
+    h2 {
+      margin: 6px 0 12px;
+    }
+
+    .search {
+      width: 100%;
+      padding: 15px 17px;
+      margin-top: 20px;
+      border-radius: 14px;
+      border: 1px solid #282e40;
+      background: #11151f;
+      color: white;
+      font-size: 16px;
+      outline: none;
+    }
+
+    .search:focus {
+      border-color: #7c5cff;
+    }
+
+    .hero {
+      background:
+        linear-gradient(
+          135deg,
+          #191d2d,
+          #10131d
+        );
+
+      border: 1px solid #242a3b;
+      border-radius: 22px;
+      padding: 20px;
+      margin: 22px 0;
+    }
+
+    .hero-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .badge {
+      background: #272044;
+      color: #aa98ff;
+      padding: 6px 9px;
+      border-radius: 9px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .score {
+      font-size: 46px;
+      font-weight: 850;
+      color: #8d75ff;
+      line-height: 1;
+      margin-top: 18px;
+    }
+
+    .score-note {
+      margin-top: 7px;
+    }
+
+    .demo-warning {
+      margin-top: 13px;
+      padding: 10px 12px;
+      background: #181c28;
+      border-radius: 11px;
+      color: #aab0c0;
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .factors {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 9px;
+      margin-top: 16px;
+    }
+
+    .factor {
+      background: #171c28;
+      padding: 12px;
+      border-radius: 12px;
+      color: #8991a5;
+      font-size: 13px;
+    }
+
+    .factor b {
+      display: block;
+      color: #ffffff;
+      font-size: 19px;
+      margin-top: 4px;
+    }
+
+    .section {
+      margin-top: 29px;
+    }
+
+    .section-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .section-title h2 {
+      margin: 0;
+    }
+
+    .card {
+      background: #11151f;
+      border: 1px solid #242a3b;
+      border-radius: 18px;
+      padding: 16px;
+      margin: 10px 0;
+    }
+
+    .stock {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .stock-left {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      min-width: 0;
+    }
+
+    .symbol {
+      width: 48px;
+      height: 48px;
+      flex-shrink: 0;
+      border-radius: 13px;
+      background: #202638;
+      display: grid;
+      place-items: center;
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .company {
+      font-weight: 750;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 180px;
+    }
+
+    .price {
+      font-weight: 750;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .change {
+      font-size: 13px;
+      margin-top: 4px;
+    }
+
+    .up {
+      color: #4bd69c;
+    }
+
+    .down {
+      color: #ff6b7a;
+    }
+
+    .neutral {
+      color: #8991a5;
+    }
+
+    .status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #8991a5;
+      font-size: 13px;
+      margin-top: 7px;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      background: #4bd69c;
+      border-radius: 50%;
+    }
+
+    .error {
+      color: #ff8d98;
+      line-height: 1.5;
+    }
+
+    .info-card b {
+      display: block;
+      margin-bottom: 7px;
+    }
+
+    .info-card p {
+      margin: 0;
+      line-height: 1.55;
+    }
+
+    nav {
+      position: fixed;
+      z-index: 10;
+      bottom: 0;
+      left: 0;
+      right: 0;
+
+      background: rgba(13, 16, 24, 0.94);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+
+      border-top: 1px solid #242a3b;
+
+      padding:
+        12px
+        15px
+        calc(14px + env(safe-area-inset-bottom));
+
+      display: flex;
+      justify-content: space-around;
+    }
+
+    nav button {
+      border: 0;
+      background: none;
+      color: #8991a5;
+      font-size: 11px;
+      min-width: 65px;
+    }
+
+    nav .icon {
+      display: block;
+      font-size: 20px;
+      margin-bottom: 3px;
+    }
+
+    nav .active {
+      color: #9b86ff;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 24px;
+      color: #8991a5;
+    }
+
+    @media (max-width: 380px) {
+      .company {
+        max-width: 135px;
+      }
+
+      .app {
+        padding-left: 14px;
+        padding-right: 14px;
+      }
+    }
+  </style>
 </head>
 
 <body>
-<div class="app">
 
-<header>
- <div class="logo">PickZone <span>AI</span></div>
- <div class="avatar">PZ</div>
-</header>
+  <div class="app">
 
-<div class="small">Guten Morgen</div>
-<h1>Deine AI Picks</h1>
+    <header>
+      <div class="logo">
+        PickZone <span>AI</span>
+      </div>
 
-<input
- class="search"
- placeholder="Aktie oder Symbol suchen …"
- id="search"
->
+      <div class="avatar">
+        PZ
+      </div>
+    </header>
 
-<div class="hero">
- <div class="small">PICKZONE AI STRATEGIE</div>
- <h2>Balanced AI</h2>
+    <div class="small">
+      MARKTÜBERSICHT
+    </div>
 
- <div class="score">87</div>
- <div class="small">Strategie-Score / 100</div>
+    <h1>
+      Deine AI Picks
+    </h1>
 
- <div class="factors">
-   <div class="factor">Value<b>82</b></div>
-   <div class="factor">Quality<b>91</b></div>
-   <div class="factor">Growth<b>86</b></div>
-   <div class="factor">Momentum<b>89</b></div>
- </div>
-</div>
+    <div class="status">
+      <span class="status-dot"></span>
+      Echte Marktdaten über PickZone API
+    </div>
 
-<div class="section">
- <div class="section-title">
-   <h2>Top Picks</h2>
-   <span class="badge">AI Ranking</span>
- </div>
+    <input
+      class="search"
+      id="search"
+      type="search"
+      placeholder="Aktie oder Symbol suchen …"
+      autocomplete="off"
+    >
 
- <div id="stocks"></div>
-</div>
+    <div class="hero">
 
-<div class="section">
- <h2>So funktioniert PickZone</h2>
+      <div class="hero-top">
 
- <div class="card">
-   <b>5-Faktor-Modell</b>
-   <p class="small">
-   Aktien werden nach Value, Quality, Growth,
-   Momentum und Risiko bewertet.
-   </p>
- </div>
+        <div class="small">
+          PICKZONE STRATEGIE
+        </div>
 
- <div class="card">
-   <b>PickZone Score</b>
-   <p class="small">
-   Die Faktoren werden zu einem transparenten
-   Score von 0 bis 100 kombiniert.
-   </p>
- </div>
-</div>
+        <div class="badge">
+          Beta
+        </div>
 
-</div>
+      </div>
 
-<nav>
- <button class="active">⌂<br>Home</button>
- <button>⌕<br>Entdecken</button>
- <button>★<br>Watchlist</button>
- <button>◉<br>Strategien</button>
-</nav>
+      <h2>
+        Balanced AI
+      </h2>
 
-<script>
-const stocks=[
- {s:"NVDA",n:"NVIDIA",p:"—",c:"Demo",score:94},
- {s:"MSFT",n:"Microsoft",p:"—",c:"Demo",score:91},
- {s:"GOOGL",n:"Alphabet",p:"—",c:"Demo",score:89},
- {s:"AMZN",n:"Amazon",p:"—",c:"Demo",score:87},
- {s:"META",n:"Meta Platforms",p:"—",c:"Demo",score:85}
-];
+      <div class="score">
+        —
+      </div>
 
-function render(list){
- document.getElementById("stocks").innerHTML=list.map(x=>`
- <div class="card stock">
-   <div class="stock-left">
-     <div class="symbol">${x.s}</div>
-     <div>
-       <div class="company">${x.n}</div>
-       <div class="small">Score ${x.score}/100</div>
-     </div>
-   </div>
-   <div class="price">
-     ${x.p}
-     <div class="up">${x.c}</div>
-   </div>
- </div>
- `).join("");
-}
+      <div class="small score-note">
+        PickZone Score
+      </div>
 
-render(stocks);
+      <div class="demo-warning">
+        Der AI-Score wird erst aktiviert, wenn
+        Fundamentaldaten, Momentum und Risiko
+        vollständig in das PickZone-Modell
+        eingebunden sind.
+      </div>
 
-document.getElementById("search").addEventListener("input",e=>{
- const q=e.target.value.toLowerCase();
- render(stocks.filter(x =>
-   x.s.toLowerCase().includes(q) ||
-   x.n.toLowerCase().includes(q)
- ));
-});
-</script>
+      <div class="factors">
+
+        <div class="factor">
+          Value
+          <b>—</b>
+        </div>
+
+        <div class="factor">
+          Quality
+          <b>—</b>
+        </div>
+
+        <div class="factor">
+          Growth
+          <b>—</b>
+        </div>
+
+        <div class="factor">
+          Momentum
+          <b>—</b>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="section">
+
+      <div class="section-title">
+
+        <h2>
+          Markt
+        </h2>
+
+        <span class="badge">
+          Live-Daten
+        </span>
+
+      </div>
+
+      <div id="stocks">
+
+        <div class="card loading">
+          Börsendaten werden geladen …
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="section">
+
+      <h2>
+        PickZone AI
+      </h2>
+
+      <div class="card info-card">
+
+        <b>
+          Echte Börsendaten
+        </b>
+
+        <p class="small">
+          Kurse und Marktinformationen werden
+          über das geschützte PickZone-Backend
+          geladen.
+        </p>
+
+      </div>
+
+      <div class="card info-card">
+
+        <b>
+          5-Faktor-Modell
+        </b>
+
+        <p class="small">
+          Die nächste Ausbaustufe bewertet Aktien
+          anhand von Value, Quality, Growth,
+          Momentum und Risk.
+        </p>
+
+      </div>
+
+      <div class="card info-card">
+
+        <b>
+          Transparente Scores
+        </b>
+
+        <p class="small">
+          PickZone zeigt nur Scores an, die aus
+          tatsächlich verfügbaren Finanzdaten
+          berechnet wurden.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <nav>
+
+    <button class="active">
+      <span class="icon">⌂</span>
+      Home
+    </button>
+
+    <button>
+      <span class="icon">⌕</span>
+      Entdecken
+    </button>
+
+    <button>
+      <span class="icon">★</span>
+      Watchlist
+    </button>
+
+    <button>
+      <span class="icon">◉</span>
+      Strategien
+    </button>
+
+  </nav>
+
+
+  <script>
+
+    const symbols = [
+      "AAPL",
+      "NVDA",
+      "MSFT",
+      "GOOGL",
+      "AMZN"
+    ];
+
+    let stocks = [];
+
+
+    function formatMoney(value) {
+
+      const number = Number(value);
+
+      if (!Number.isFinite(number)) {
+        return "—";
+      }
+
+      return new Intl.NumberFormat(
+        "de-DE",
+        {
+          style: "currency",
+          currency: "USD",
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        }
+      ).format(number);
+
+    }
+
+
+    function formatPercent(value) {
+
+      const number = Number(value);
+
+      if (!Number.isFinite(number)) {
+        return "—";
+      }
+
+      const sign =
+        number > 0
+          ? "+"
+          : "";
+
+      return (
+        sign +
+        number.toFixed(2)
+          .replace(".", ",") +
+        " %"
+      );
+
+    }
+
+
+    function getChangeClass(value) {
+
+      const number = Number(value);
+
+      if (!Number.isFinite(number)) {
+        return "neutral";
+      }
+
+      if (number > 0) {
+        return "up";
+      }
+
+      if (number < 0) {
+        return "down";
+      }
+
+      return "neutral";
+
+    }
+
+
+    function escapeHTML(value) {
+
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+
+    }
+
+
+    function render(list) {
+
+      const container =
+        document.getElementById("stocks");
+
+      if (!list.length) {
+
+        container.innerHTML = `
+          <div class="card">
+            Keine Aktien gefunden.
+          </div>
+        `;
+
+        return;
+
+      }
+
+      container.innerHTML =
+        list.map(stock => {
+
+          const symbol =
+            escapeHTML(stock.symbol);
+
+          const name =
+            escapeHTML(
+              stock.name ||
+              stock.symbol
+            );
+
+          const changeClass =
+            getChangeClass(
+              stock.changePercentage
+            );
+
+          return `
+            <div class="card stock">
+
+              <div class="stock-left">
+
+                <div class="symbol">
+                  ${symbol}
+                </div>
+
+                <div>
+
+                  <div class="company">
+                    ${name}
+                  </div>
+
+                  <div class="small">
+                    ${symbol}
+                  </div>
+
+                </div>
+
+              </div>
+
+
+              <div class="price">
+
+                ${formatMoney(stock.price)}
+
+                <div
+                  class="change ${changeClass}"
+                >
+                  ${formatPercent(
+                    stock.changePercentage
+                  )}
+                </div>
+
+              </div>
+
+            </div>
+          `;
+
+        }).join("");
+
+    }
+
+
+    async function loadStock(symbol) {
+
+      const response =
+        await fetch(
+          `/api/stock?symbol=${
+            encodeURIComponent(symbol)
+          }`,
+          {
+            cache: "no-store"
+          }
+        );
+
+      if (!response.ok) {
+
+        let message =
+          `Fehler bei ${symbol}`;
+
+        try {
+
+          const errorData =
+            await response.json();
+
+          if (errorData.error) {
+            message =
+              errorData.error;
+          }
+
+        } catch (_) {}
+
+        throw new Error(message);
+
+      }
+
+      return response.json();
+
+    }
+
+
+    async function loadStocks() {
+
+      const container =
+        document.getElementById("stocks");
+
+      container.innerHTML = `
+        <div class="card loading">
+          Echte Börsendaten werden geladen …
+        </div>
+      `;
+
+      try {
+
+        const results =
+          await Promise.allSettled(
+            symbols.map(
+              symbol =>
+                loadStock(symbol)
+            )
+          );
+
+        stocks =
+          results
+            .filter(
+              result =>
+                result.status ===
+                "fulfilled"
+            )
+            .map(
+              result =>
+                result.value
+            );
+
+
+        if (!stocks.length) {
+
+          throw new Error(
+            "Keine Börsendaten konnten geladen werden."
+          );
+
+        }
+
+
+        render(stocks);
+
+
+        const failed =
+          results.filter(
+            result =>
+              result.status ===
+              "rejected"
+          );
+
+
+        if (failed.length) {
+
+          console.warn(
+            "Einige Aktien konnten nicht geladen werden:",
+            failed
+          );
+
+        }
+
+      } catch (error) {
+
+        console.error(error);
+
+        container.innerHTML = `
+          <div class="card error">
+            Börsendaten konnten gerade nicht
+            geladen werden. Bitte versuche es
+            später erneut.
+          </div>
+        `;
+
+      }
+
+    }
+
+
+    document
+      .getElementById("search")
+      .addEventListener(
+        "input",
+        event => {
+
+          const query =
+            event.target.value
+              .trim()
+              .toLowerCase();
+
+
+          if (!query) {
+
+            render(stocks);
+
+            return;
+
+          }
+
+
+          const filtered =
+            stocks.filter(stock => {
+
+              const symbol =
+                String(
+                  stock.symbol || ""
+                ).toLowerCase();
+
+              const name =
+                String(
+                  stock.name || ""
+                ).toLowerCase();
+
+              return (
+                symbol.includes(query) ||
+                name.includes(query)
+              );
+
+            });
+
+
+          render(filtered);
+
+        }
+      );
+
+
+    loadStocks();
+
+  </script>
 
 </body>
 </html>
