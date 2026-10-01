@@ -21,6 +21,10 @@ html,body{
 
 body{min-height:100vh}
 
+button,input{font:inherit}
+
+button{cursor:pointer}
+
 .app{
   max-width:520px;
   margin:auto;
@@ -118,9 +122,7 @@ h2{margin:0}
   box-shadow:0 18px 45px rgba(0,0,0,.45);
 }
 
-.search-results.show{
-  display:block;
-}
+.search-results.show{display:block}
 
 .search-item{
   display:flex;
@@ -129,20 +131,15 @@ h2{margin:0}
   gap:12px;
   padding:14px;
   border-bottom:1px solid #242a3b;
-  cursor:pointer;
 }
 
-.search-item:last-child{
-  border-bottom:0;
-}
+.search-item:last-child{border-bottom:0}
 
 .search-item:active{
   background:#191e2b;
 }
 
-.search-symbol{
-  font-weight:800;
-}
+.search-symbol{font-weight:800}
 
 .search-name{
   margin-top:3px;
@@ -229,9 +226,7 @@ h2{margin:0}
   line-height:1.5;
 }
 
-.section{
-  margin-top:30px;
-}
+.section{margin-top:30px}
 
 .section-title{
   display:flex;
@@ -246,10 +241,6 @@ h2{margin:0}
   border:1px solid #242a3b;
   border-radius:18px;
   background:#11151f;
-}
-
-.stock{
-  cursor:pointer;
 }
 
 .stock-main{
@@ -279,7 +270,7 @@ h2{margin:0}
 }
 
 .company{
-  max-width:165px;
+  max-width:155px;
   overflow:hidden;
   text-overflow:ellipsis;
   white-space:nowrap;
@@ -327,9 +318,30 @@ h2{margin:0}
   font-weight:850;
 }
 
+.stock-actions{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
 .rank{
   color:#8991a5;
   font-size:12px;
+}
+
+.star{
+  width:38px;
+  height:38px;
+  border:0;
+  border-radius:11px;
+  background:#1b202d;
+  color:#8991a5;
+  font-size:21px;
+}
+
+.star.saved{
+  background:#332b19;
+  color:#ffd45c;
 }
 
 .details{
@@ -370,13 +382,6 @@ h2{margin:0}
   color:#8991a5;
 }
 
-.search-loading{
-  padding:15px;
-  text-align:center;
-  color:#8991a5;
-  font-size:13px;
-}
-
 .message{
   margin-top:10px;
   padding:12px;
@@ -387,9 +392,26 @@ h2{margin:0}
   line-height:1.45;
 }
 
-.error{
-  color:#ff8d98;
+.error{color:#ff8d98}
+
+.empty{
+  padding:28px 18px;
+  text-align:center;
 }
+
+.empty-star{
+  font-size:38px;
+  margin-bottom:12px;
+  color:#ffd45c;
+}
+
+.empty h3{
+  margin:0 0 8px;
+}
+
+.view{display:none}
+
+.view.active{display:block}
 
 nav{
   position:fixed;
@@ -422,12 +444,12 @@ nav .icon{
   font-size:20px;
 }
 
-nav .active{
+nav button.active{
   color:#9b86ff;
 }
 
 @media(max-width:380px){
-  .company{max-width:125px}
+  .company{max-width:120px}
 
   .app{
     padding-left:14px;
@@ -445,134 +467,158 @@ nav .active{
   <div class="logo">
     PickZone <span>AI</span>
   </div>
-
   <div class="avatar">PZ</div>
 </header>
 
-<div class="small">
-  PICKZONE MARKTÜBERSICHT
-</div>
 
-<h1>Top Picks</h1>
-
-<div class="status">
-  <span class="dot"></span>
-  Marktdaten & PickZone Score
-</div>
-
-
-<div class="search-wrap">
-
-  <input
-    id="search"
-    class="search"
-    type="search"
-    placeholder="Tesla, AAPL, AMD, Netflix …"
-    autocomplete="off"
-  >
-
-  <div
-    id="searchResults"
-    class="search-results"
-  ></div>
-
-</div>
-
-<div
-  id="searchMessage"
-></div>
-
-
-<div class="hero">
-
-  <div class="hero-top">
-
-    <div class="small">
-      HÖCHSTER GELADENER SCORE
-    </div>
-
-    <div class="badge">
-      Score v1
-    </div>
-
-  </div>
-
-  <div
-    id="heroScore"
-    class="hero-score"
-  >
-    —
-  </div>
+<div id="homeView" class="view active">
 
   <div class="small">
-    PickZone Score / 100
+    PICKZONE MARKTÜBERSICHT
   </div>
 
-  <div
-    id="heroName"
-    class="hero-name"
-  >
-    Daten werden geladen …
-  </div>
+  <h1>Top Picks</h1>
 
-
-  <div class="factors">
-
-    <div class="factor">
-      Value
-      <b id="heroValue">—</b>
-    </div>
-
-    <div class="factor">
-      Quality
-      <b id="heroQuality">—</b>
-    </div>
-
-    <div class="factor">
-      Growth
-      <b id="heroGrowth">—</b>
-    </div>
-
-    <div class="factor">
-      Momentum
-      <b id="heroMomentum">—</b>
-    </div>
-
-    <div class="factor factor-wide">
-      Risk
-      <b id="heroRisk">—</b>
-    </div>
-
+  <div class="status">
+    <span class="dot"></span>
+    Marktdaten & PickZone Score
   </div>
 
 
-  <div class="note">
-    Der PickZone Score ist ein regelbasierter
-    Modellscore aus verfügbaren Finanz- und
-    Kursdaten. Er ist keine Garantie für
-    zukünftige Renditen.
+  <div class="search-wrap">
+
+    <input
+      id="search"
+      class="search"
+      type="search"
+      placeholder="Tesla, AAPL, AMD, Netflix …"
+      autocomplete="off"
+    >
+
+    <div
+      id="searchResults"
+      class="search-results"
+    ></div>
+
+  </div>
+
+  <div id="searchMessage"></div>
+
+
+  <div class="hero">
+
+    <div class="hero-top">
+      <div class="small">
+        HÖCHSTER GELADENER SCORE
+      </div>
+
+      <div class="badge">
+        Score v1
+      </div>
+    </div>
+
+    <div
+      id="heroScore"
+      class="hero-score"
+    >
+      —
+    </div>
+
+    <div class="small">
+      PickZone Score / 100
+    </div>
+
+    <div
+      id="heroName"
+      class="hero-name"
+    >
+      Daten werden geladen …
+    </div>
+
+
+    <div class="factors">
+
+      <div class="factor">
+        Value
+        <b id="heroValue">—</b>
+      </div>
+
+      <div class="factor">
+        Quality
+        <b id="heroQuality">—</b>
+      </div>
+
+      <div class="factor">
+        Growth
+        <b id="heroGrowth">—</b>
+      </div>
+
+      <div class="factor">
+        Momentum
+        <b id="heroMomentum">—</b>
+      </div>
+
+      <div class="factor factor-wide">
+        Risk
+        <b id="heroRisk">—</b>
+      </div>
+
+    </div>
+
+    <div class="note">
+      Der PickZone Score ist ein regelbasierter
+      Modellscore aus verfügbaren Finanz- und
+      Kursdaten. Er ist keine Garantie für
+      zukünftige Renditen.
+    </div>
+
+  </div>
+
+
+  <div class="section">
+
+    <div class="section-title">
+      <h2>Ranking</h2>
+      <span class="badge">0–100</span>
+    </div>
+
+    <div id="stocks">
+      <div class="card loading">
+        Kurse und Scores werden geladen …
+      </div>
+    </div>
+
   </div>
 
 </div>
 
 
-<div class="section">
+<div id="watchlistView" class="view">
 
-  <div class="section-title">
-
-    <h2>Ranking</h2>
-
-    <span class="badge">
-      0–100
-    </span>
-
+  <div class="small">
+    DEINE AUSWAHL
   </div>
 
-  <div id="stocks">
+  <h1>Watchlist</h1>
 
-    <div class="card loading">
-      Kurse und Scores werden geladen …
+  <div class="status">
+    <span class="dot"></span>
+    Auf diesem Gerät gespeichert
+  </div>
+
+  <div class="section">
+
+    <div class="section-title">
+      <h2>Gespeicherte Aktien</h2>
+      <span
+        id="watchCount"
+        class="badge"
+      >
+        0
+      </span>
     </div>
+
+    <div id="watchlistStocks"></div>
 
   </div>
 
@@ -583,17 +629,26 @@ nav .active{
 
 <nav>
 
-<button class="active">
+<button
+  id="homeButton"
+  class="active"
+  onclick="showView('home')"
+>
   <span class="icon">⌂</span>
   Home
 </button>
 
-<button>
+<button
+  onclick="showView('home');focusSearch()"
+>
   <span class="icon">⌕</span>
   Entdecken
 </button>
 
-<button>
+<button
+  id="watchButton"
+  onclick="showView('watchlist')"
+>
   <span class="icon">★</span>
   Watchlist
 </button>
@@ -618,9 +673,80 @@ const defaultSymbols = [
 
 let stocks = [];
 
+let watchlist = loadWatchlist();
+
 let searchTimer = null;
 
 let searchRequest = 0;
+
+
+function loadWatchlist(){
+
+  try{
+
+    const stored =
+      JSON.parse(
+        localStorage.getItem(
+          "pickzone-watchlist"
+        ) || "[]"
+      );
+
+    return Array.isArray(stored)
+      ? stored
+      : [];
+
+  }catch{
+
+    return [];
+
+  }
+
+}
+
+
+function saveWatchlist(){
+
+  localStorage.setItem(
+    "pickzone-watchlist",
+    JSON.stringify(watchlist)
+  );
+
+}
+
+
+function isSaved(symbol){
+
+  return watchlist.includes(symbol);
+
+}
+
+
+function toggleWatchlist(symbol,event){
+
+  if(event){
+    event.stopPropagation();
+  }
+
+  if(isSaved(symbol)){
+
+    watchlist =
+      watchlist.filter(
+        item => item !== symbol
+      );
+
+  }else{
+
+    watchlist.push(symbol);
+
+  }
+
+  saveWatchlist();
+
+  renderStocks();
+
+  renderWatchlist();
+
+}
 
 
 function escapeHTML(value){
@@ -718,17 +844,11 @@ function sortStocks(){
     const bScore =
       Number(b.scores?.total);
 
-    const safeA =
-      Number.isFinite(aScore)
-        ? aScore
-        : -1;
-
-    const safeB =
-      Number.isFinite(bScore)
-        ? bScore
-        : -1;
-
-    return safeB - safeA;
+    return (
+      (Number.isFinite(bScore) ? bScore : -1)
+      -
+      (Number.isFinite(aScore) ? aScore : -1)
+    );
 
   });
 
@@ -743,40 +863,197 @@ function updateHero(){
     return;
   }
 
-  document
-    .getElementById("heroScore")
+  document.getElementById("heroScore")
     .textContent =
       score(stock.scores?.total);
 
-  document
-    .getElementById("heroName")
+  document.getElementById("heroName")
     .textContent =
       `${stock.name || stock.symbol} · ${stock.symbol}`;
 
-  document
-    .getElementById("heroValue")
+  document.getElementById("heroValue")
     .textContent =
       score(stock.scores?.value);
 
-  document
-    .getElementById("heroQuality")
+  document.getElementById("heroQuality")
     .textContent =
       score(stock.scores?.quality);
 
-  document
-    .getElementById("heroGrowth")
+  document.getElementById("heroGrowth")
     .textContent =
       score(stock.scores?.growth);
 
-  document
-    .getElementById("heroMomentum")
+  document.getElementById("heroMomentum")
     .textContent =
       score(stock.scores?.momentum);
 
-  document
-    .getElementById("heroRisk")
+  document.getElementById("heroRisk")
     .textContent =
       score(stock.scores?.risk);
+
+}
+
+
+function stockHTML(stock,index,showRank=true){
+
+  const symbol =
+    escapeHTML(stock.symbol);
+
+  const name =
+    escapeHTML(
+      stock.name || stock.symbol
+    );
+
+  const saved =
+    isSaved(stock.symbol);
+
+  return `
+    <div
+      class="card stock"
+      onclick="this.classList.toggle('open')"
+    >
+
+      <div class="stock-main">
+
+        <div class="stock-left">
+
+          <div class="symbol">
+            ${symbol}
+          </div>
+
+          <div>
+
+            <div class="company">
+              ${name}
+            </div>
+
+            <div class="small">
+              ${symbol}
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="price">
+
+          ${money(stock.price)}
+
+          <div
+            class="change ${changeClass(
+              stock.changePercentage
+            )}"
+          >
+            ${percent(
+              stock.changePercentage
+            )}
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="stock-bottom">
+
+        <div class="score-pill">
+
+          <div class="score-circle">
+            ${score(
+              stock.scores?.total
+            )}
+          </div>
+
+          <div>
+            <b>PickZone</b>
+            <div class="small">
+              Score / 100
+            </div>
+          </div>
+
+        </div>
+
+
+        <div class="stock-actions">
+
+          ${
+            showRank
+            ? `<div class="rank">#${index + 1}</div>`
+            : ""
+          }
+
+          <button
+            class="star ${saved ? "saved" : ""}"
+            onclick="toggleWatchlist(
+              '${symbol}',
+              event
+            )"
+            aria-label="Watchlist"
+          >
+            ${saved ? "★" : "☆"}
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <div class="details">
+
+        <div class="detail-grid">
+
+          <div class="detail">
+            Value
+            <b>
+              ${score(stock.scores?.value)}
+            </b>
+          </div>
+
+          <div class="detail">
+            Quality
+            <b>
+              ${score(stock.scores?.quality)}
+            </b>
+          </div>
+
+          <div class="detail">
+            Growth
+            <b>
+              ${score(stock.scores?.growth)}
+            </b>
+          </div>
+
+          <div class="detail">
+            Momentum
+            <b>
+              ${score(stock.scores?.momentum)}
+            </b>
+          </div>
+
+          <div class="detail">
+            Risk
+            <b>
+              ${score(stock.scores?.risk)}
+            </b>
+          </div>
+
+          <div class="detail">
+            6M Momentum
+            <b>
+              ${percent(
+                stock.marketFactors
+                  ?.momentum6m
+              )}
+            </b>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  `;
 
 }
 
@@ -797,163 +1074,119 @@ function renderStocks(){
     return;
   }
 
+  container.innerHTML =
+    stocks
+      .map(
+        (stock,index) =>
+          stockHTML(
+            stock,
+            index,
+            true
+          )
+      )
+      .join("");
+
+}
+
+
+async function renderWatchlist(){
+
+  const container =
+    document.getElementById(
+      "watchlistStocks"
+    );
+
+  document.getElementById(
+    "watchCount"
+  ).textContent =
+    watchlist.length;
+
+
+  if(!watchlist.length){
+
+    container.innerHTML = `
+      <div class="card empty">
+
+        <div class="empty-star">
+          ☆
+        </div>
+
+        <h3>
+          Noch keine Aktien gespeichert
+        </h3>
+
+        <div class="small">
+          Tippe bei einer Aktie auf den Stern,
+          um sie deiner Watchlist hinzuzufügen.
+        </div>
+
+      </div>
+    `;
+
+    return;
+  }
+
+
+  container.innerHTML = `
+    <div class="card loading">
+      Watchlist wird geladen …
+    </div>
+  `;
+
+
+  const results =
+    await Promise.allSettled(
+      watchlist.map(
+        symbol =>
+          loadStock(symbol)
+      )
+    );
+
+
+  const savedStocks =
+    results
+      .filter(
+        result =>
+          result.status ===
+          "fulfilled"
+      )
+      .map(
+        result =>
+          result.value
+      );
+
+
+  savedStocks.sort((a,b)=>
+    Number(b.scores?.total || 0)
+    -
+    Number(a.scores?.total || 0)
+  );
+
+
+  if(!savedStocks.length){
+
+    container.innerHTML = `
+      <div class="card error">
+        Die Watchlist konnte gerade
+        nicht geladen werden.
+      </div>
+    `;
+
+    return;
+  }
+
 
   container.innerHTML =
-    stocks.map((stock,index)=>{
-
-      const symbol =
-        escapeHTML(stock.symbol);
-
-      const name =
-        escapeHTML(
-          stock.name ||
-          stock.symbol
-        );
-
-      return `
-        <div
-          class="card stock"
-          onclick="this.classList.toggle('open')"
-        >
-
-          <div class="stock-main">
-
-            <div class="stock-left">
-
-              <div class="symbol">
-                ${symbol}
-              </div>
-
-              <div>
-
-                <div class="company">
-                  ${name}
-                </div>
-
-                <div class="small">
-                  ${symbol}
-                </div>
-
-              </div>
-
-            </div>
-
-
-            <div class="price">
-
-              ${money(stock.price)}
-
-              <div
-                class="change ${changeClass(
-                  stock.changePercentage
-                )}"
-              >
-                ${percent(
-                  stock.changePercentage
-                )}
-              </div>
-
-            </div>
-
-          </div>
-
-
-          <div class="stock-bottom">
-
-            <div class="score-pill">
-
-              <div class="score-circle">
-                ${score(
-                  stock.scores?.total
-                )}
-              </div>
-
-              <div>
-
-                <b>PickZone</b>
-
-                <div class="small">
-                  Score / 100
-                </div>
-
-              </div>
-
-            </div>
-
-            <div class="rank">
-              #${index + 1}
-            </div>
-
-          </div>
-
-
-          <div class="details">
-
-            <div class="detail-grid">
-
-              <div class="detail">
-                Value
-                <b>
-                  ${score(
-                    stock.scores?.value
-                  )}
-                </b>
-              </div>
-
-              <div class="detail">
-                Quality
-                <b>
-                  ${score(
-                    stock.scores?.quality
-                  )}
-                </b>
-              </div>
-
-              <div class="detail">
-                Growth
-                <b>
-                  ${score(
-                    stock.scores?.growth
-                  )}
-                </b>
-              </div>
-
-              <div class="detail">
-                Momentum
-                <b>
-                  ${score(
-                    stock.scores?.momentum
-                  )}
-                </b>
-              </div>
-
-              <div class="detail">
-                Risk
-                <b>
-                  ${score(
-                    stock.scores?.risk
-                  )}
-                </b>
-              </div>
-
-              <div class="detail">
-                6M Momentum
-                <b>
-                  ${percent(
-                    stock.marketFactors
-                      ?.momentum6m
-                  )}
-                </b>
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-      `;
-
-    }).join("");
+    savedStocks
+      .map(
+        (stock,index) =>
+          stockHTML(
+            stock,
+            index,
+            false
+          )
+      )
+      .join("");
 
 }
 
@@ -972,7 +1205,7 @@ async function loadStock(symbol){
 
   if(!response.ok){
     throw new Error(
-      `Aktie ${symbol} konnte nicht geladen werden.`
+      `Fehler bei ${symbol}`
     );
   }
 
@@ -992,6 +1225,7 @@ async function loadDefaults(){
     </div>
   `;
 
+
   const results =
     await Promise.allSettled(
       defaultSymbols.map(
@@ -999,6 +1233,7 @@ async function loadDefaults(){
           loadStock(symbol)
       )
     );
+
 
   stocks =
     results
@@ -1011,6 +1246,7 @@ async function loadDefaults(){
         result =>
           result.value
       );
+
 
   sortStocks();
 
@@ -1065,11 +1301,15 @@ function showSearchResults(results){
       "searchResults"
     );
 
-  if(!Array.isArray(results) ||
-     !results.length){
+
+  if(
+    !Array.isArray(results) ||
+    !results.length
+  ){
 
     box.innerHTML = `
-      <div class="search-loading">
+      <div class="search-name"
+           style="padding:15px">
         Keine Treffer gefunden.
       </div>
     `;
@@ -1088,8 +1328,7 @@ function showSearchResults(results){
 
       const name =
         escapeHTML(
-          item.name ||
-          item.symbol
+          item.name || item.symbol
         );
 
       const exchange =
@@ -1104,7 +1343,6 @@ function showSearchResults(results){
         >
 
           <div>
-
             <div class="search-symbol">
               ${symbol}
             </div>
@@ -1112,7 +1350,6 @@ function showSearchResults(results){
             <div class="search-name">
               ${name}
             </div>
-
           </div>
 
           <div class="exchange">
@@ -1129,19 +1366,16 @@ function showSearchResults(results){
 
 
   box
-    .querySelectorAll(
-      ".search-item"
-    )
+    .querySelectorAll(".search-item")
     .forEach(item=>{
 
       item.addEventListener(
         "click",
         async ()=>{
 
-          const symbol =
-            item.dataset.symbol;
-
-          await addStock(symbol);
+          await addStock(
+            item.dataset.symbol
+          );
 
         }
       );
@@ -1153,16 +1387,17 @@ function showSearchResults(results){
 
 async function addStock(symbol){
 
+  hideSearchResults();
+
+  document.getElementById(
+    "search"
+  ).value = "";
+
+
   const message =
     document.getElementById(
       "searchMessage"
     );
-
-  hideSearchResults();
-
-  document
-    .getElementById("search")
-    .value = "";
 
 
   const existing =
@@ -1210,11 +1445,11 @@ async function addStock(symbol){
     message.innerHTML = `
       <div class="message">
         ${escapeHTML(
-          stock.name ||
-          stock.symbol
+          stock.name || stock.symbol
         )}
-        wurde analysiert und
-        ins Ranking aufgenommen.
+        wurde ins Ranking aufgenommen.
+        Tippe auf ☆, um die Aktie
+        dauerhaft zu speichern.
       </div>
     `;
 
@@ -1235,8 +1470,84 @@ async function addStock(symbol){
 }
 
 
+function showView(view){
+
+  document
+    .querySelectorAll(".view")
+    .forEach(element =>
+      element.classList.remove(
+        "active"
+      )
+    );
+
+
+  document
+    .querySelectorAll("nav button")
+    .forEach(button =>
+      button.classList.remove(
+        "active"
+      )
+    );
+
+
+  if(view === "watchlist"){
+
+    document
+      .getElementById(
+        "watchlistView"
+      )
+      .classList.add("active");
+
+    document
+      .getElementById(
+        "watchButton"
+      )
+      .classList.add("active");
+
+    renderWatchlist();
+
+  }else{
+
+    document
+      .getElementById(
+        "homeView"
+      )
+      .classList.add("active");
+
+    document
+      .getElementById(
+        "homeButton"
+      )
+      .classList.add("active");
+
+  }
+
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+}
+
+
+function focusSearch(){
+
+  setTimeout(()=>{
+
+    document
+      .getElementById("search")
+      .focus();
+
+  },100);
+
+}
+
+
 const searchInput =
-  document.getElementById("search");
+  document.getElementById(
+    "search"
+  );
 
 
 searchInput.addEventListener(
@@ -1245,7 +1556,6 @@ searchInput.addEventListener(
 
     const query =
       searchInput.value.trim();
-
 
     clearTimeout(searchTimer);
 
@@ -1269,7 +1579,10 @@ searchInput.addEventListener(
 
 
     box.innerHTML = `
-      <div class="search-loading">
+      <div
+        class="search-name"
+        style="padding:15px"
+      >
         Suche …
       </div>
     `;
@@ -1307,15 +1620,14 @@ searchInput.addEventListener(
             console.error(error);
 
             box.innerHTML = `
-              <div class="search-loading">
+              <div
+                class="search-name"
+                style="padding:15px"
+              >
                 Suche konnte nicht
                 geladen werden.
               </div>
             `;
-
-            box.classList.add(
-              "show"
-            );
 
           }
 
@@ -1338,9 +1650,7 @@ document.addEventListener(
 
     if(
       wrap &&
-      !wrap.contains(
-        event.target
-      )
+      !wrap.contains(event.target)
     ){
       hideSearchResults();
     }
