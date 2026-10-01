@@ -19,9 +19,7 @@ html,body{
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
 }
 
-body{
-  min-height:100vh;
-}
+body{min-height:100vh}
 
 .app{
   max-width:520px;
@@ -45,9 +43,7 @@ header{
   letter-spacing:-.8px;
 }
 
-.logo span{
-  color:#8d75ff;
-}
+.logo span{color:#8d75ff}
 
 .avatar{
   width:42px;
@@ -70,25 +66,7 @@ h1{
   letter-spacing:-1px;
 }
 
-h2{
-  margin:0;
-}
-
-.search{
-  width:100%;
-  margin-top:20px;
-  padding:15px 17px;
-  border-radius:14px;
-  border:1px solid #282e40;
-  background:#11151f;
-  color:white;
-  font-size:16px;
-  outline:none;
-}
-
-.search:focus{
-  border-color:#7c5cff;
-}
+h2{margin:0}
 
 .status{
   display:flex;
@@ -104,6 +82,78 @@ h2{
   height:7px;
   border-radius:50%;
   background:#4bd69c;
+}
+
+.search-wrap{
+  position:relative;
+  margin-top:20px;
+}
+
+.search{
+  width:100%;
+  padding:15px 17px;
+  border-radius:14px;
+  border:1px solid #282e40;
+  background:#11151f;
+  color:#fff;
+  font-size:16px;
+  outline:none;
+}
+
+.search:focus{
+  border-color:#7c5cff;
+}
+
+.search-results{
+  display:none;
+  position:absolute;
+  z-index:50;
+  top:57px;
+  left:0;
+  right:0;
+  overflow:hidden;
+  border:1px solid #282e40;
+  border-radius:15px;
+  background:#11151f;
+  box-shadow:0 18px 45px rgba(0,0,0,.45);
+}
+
+.search-results.show{
+  display:block;
+}
+
+.search-item{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  padding:14px;
+  border-bottom:1px solid #242a3b;
+  cursor:pointer;
+}
+
+.search-item:last-child{
+  border-bottom:0;
+}
+
+.search-item:active{
+  background:#191e2b;
+}
+
+.search-symbol{
+  font-weight:800;
+}
+
+.search-name{
+  margin-top:3px;
+  color:#8991a5;
+  font-size:12px;
+}
+
+.exchange{
+  flex-shrink:0;
+  color:#8991a5;
+  font-size:11px;
 }
 
 .hero{
@@ -130,21 +180,17 @@ h2{
 }
 
 .hero-score{
+  margin-top:18px;
+  color:#8d75ff;
   font-size:50px;
   line-height:1;
   font-weight:850;
-  color:#8d75ff;
-  margin-top:18px;
-}
-
-.score-label{
-  margin-top:6px;
 }
 
 .hero-name{
+  margin-top:6px;
   font-size:20px;
   font-weight:750;
-  margin-top:6px;
 }
 
 .factors{
@@ -155,9 +201,9 @@ h2{
 }
 
 .factor{
-  background:#171c28;
   padding:12px;
   border-radius:12px;
+  background:#171c28;
   color:#8991a5;
   font-size:13px;
 }
@@ -170,7 +216,7 @@ h2{
 }
 
 .factor-wide{
-  grid-column:1 / -1;
+  grid-column:1/-1;
 }
 
 .note{
@@ -195,11 +241,11 @@ h2{
 }
 
 .card{
-  background:#11151f;
+  margin:10px 0;
+  padding:16px;
   border:1px solid #242a3b;
   border-radius:18px;
-  padding:16px;
-  margin:10px 0;
+  background:#11151f;
 }
 
 .stock{
@@ -224,10 +270,10 @@ h2{
   width:48px;
   height:48px;
   flex-shrink:0;
-  border-radius:13px;
-  background:#202638;
   display:grid;
   place-items:center;
+  border-radius:13px;
+  background:#202638;
   font-size:12px;
   font-weight:850;
 }
@@ -242,8 +288,8 @@ h2{
 
 .price{
   text-align:right;
-  font-weight:750;
   white-space:nowrap;
+  font-weight:750;
 }
 
 .change{
@@ -273,9 +319,9 @@ h2{
 .score-circle{
   width:39px;
   height:39px;
-  border-radius:50%;
   display:grid;
   place-items:center;
+  border-radius:50%;
   background:#272044;
   color:#b4a5ff;
   font-weight:850;
@@ -305,8 +351,8 @@ h2{
 
 .detail{
   padding:10px;
-  background:#171c28;
   border-radius:11px;
+  background:#171c28;
   color:#8991a5;
   font-size:12px;
 }
@@ -319,19 +365,30 @@ h2{
 }
 
 .loading{
-  text-align:center;
   padding:25px;
+  text-align:center;
   color:#8991a5;
+}
+
+.search-loading{
+  padding:15px;
+  text-align:center;
+  color:#8991a5;
+  font-size:13px;
+}
+
+.message{
+  margin-top:10px;
+  padding:12px;
+  border-radius:12px;
+  background:#171c28;
+  color:#8991a5;
+  font-size:13px;
+  line-height:1.45;
 }
 
 .error{
   color:#ff8d98;
-  line-height:1.5;
-}
-
-.info p{
-  margin:7px 0 0;
-  line-height:1.55;
 }
 
 nav{
@@ -371,6 +428,7 @@ nav .active{
 
 @media(max-width:380px){
   .company{max-width:125px}
+
   .app{
     padding-left:14px;
     padding-right:14px;
@@ -391,7 +449,9 @@ nav .active{
   <div class="avatar">PZ</div>
 </header>
 
-<div class="small">PICKZONE MARKTÜBERSICHT</div>
+<div class="small">
+  PICKZONE MARKTÜBERSICHT
+</div>
 
 <h1>Top Picks</h1>
 
@@ -400,17 +460,33 @@ nav .active{
   Marktdaten & PickZone Score
 </div>
 
-<input
-  id="search"
-  class="search"
-  type="search"
-  placeholder="Aktie oder Symbol suchen …"
-  autocomplete="off"
->
+
+<div class="search-wrap">
+
+  <input
+    id="search"
+    class="search"
+    type="search"
+    placeholder="Tesla, AAPL, AMD, Netflix …"
+    autocomplete="off"
+  >
+
+  <div
+    id="searchResults"
+    class="search-results"
+  ></div>
+
+</div>
+
+<div
+  id="searchMessage"
+></div>
+
 
 <div class="hero">
 
   <div class="hero-top">
+
     <div class="small">
       HÖCHSTER GELADENER SCORE
     </div>
@@ -418,19 +494,27 @@ nav .active{
     <div class="badge">
       Score v1
     </div>
+
   </div>
 
-  <div id="heroScore" class="hero-score">
+  <div
+    id="heroScore"
+    class="hero-score"
+  >
     —
   </div>
 
-  <div class="small score-label">
+  <div class="small">
     PickZone Score / 100
   </div>
 
-  <div id="heroName" class="hero-name">
+  <div
+    id="heroName"
+    class="hero-name"
+  >
     Daten werden geladen …
   </div>
+
 
   <div class="factors">
 
@@ -461,11 +545,12 @@ nav .active{
 
   </div>
 
+
   <div class="note">
     Der PickZone Score ist ein regelbasierter
     Modellscore aus verfügbaren Finanz- und
-    Kursdaten. Er ist keine Garantie für zukünftige
-    Renditen und keine individuelle Anlageberatung.
+    Kursdaten. Er ist keine Garantie für
+    zukünftige Renditen.
   </div>
 
 </div>
@@ -474,11 +559,13 @@ nav .active{
 <div class="section">
 
   <div class="section-title">
+
     <h2>Ranking</h2>
 
     <span class="badge">
       0–100
     </span>
+
   </div>
 
   <div id="stocks">
@@ -487,47 +574,6 @@ nav .active{
       Kurse und Scores werden geladen …
     </div>
 
-  </div>
-
-</div>
-
-
-<div class="section">
-
-  <h2>Methodik</h2>
-
-  <div class="card info">
-    <b>Value</b>
-    <p class="small">
-      Bewertungskennzahlen wie KGV und
-      Kurs-Buchwert-Verhältnis.
-    </p>
-  </div>
-
-  <div class="card info">
-    <b>Quality</b>
-    <p class="small">
-      Profitabilität, Margen, Verschuldung
-      und Liquidität.
-    </p>
-  </div>
-
-  <div class="card info">
-    <b>Growth</b>
-    <p class="small">
-      Umsatz- und Gewinnwachstum aus den
-      verfügbaren Unternehmensdaten.
-    </p>
-  </div>
-
-  <div class="card info">
-    <b>Momentum & Risk</b>
-    <p class="small">
-      Historische Kursentwicklung und
-      annualisierte Volatilität. Ein höherer
-      Risk-Score bedeutet in diesem Modell
-      geringeres historisches Risiko.
-    </p>
   </div>
 
 </div>
@@ -562,7 +608,7 @@ nav .active{
 
 <script>
 
-const symbols = [
+const defaultSymbols = [
   "AAPL",
   "NVDA",
   "MSFT",
@@ -571,6 +617,10 @@ const symbols = [
 ];
 
 let stocks = [];
+
+let searchTimer = null;
+
+let searchRequest = 0;
 
 
 function escapeHTML(value){
@@ -626,6 +676,17 @@ function percent(value){
 }
 
 
+function score(value){
+
+  const number = Number(value);
+
+  return Number.isFinite(number)
+    ? Math.round(number)
+    : "—";
+
+}
+
+
 function changeClass(value){
 
   const number = Number(value);
@@ -647,64 +708,89 @@ function changeClass(value){
 }
 
 
-function score(value){
+function sortStocks(){
 
-  const number = Number(value);
+  stocks.sort((a,b)=>{
 
-  return Number.isFinite(number)
-    ? Math.round(number)
-    : "—";
+    const aScore =
+      Number(a.scores?.total);
+
+    const bScore =
+      Number(b.scores?.total);
+
+    const safeA =
+      Number.isFinite(aScore)
+        ? aScore
+        : -1;
+
+    const safeB =
+      Number.isFinite(bScore)
+        ? bScore
+        : -1;
+
+    return safeB - safeA;
+
+  });
 
 }
 
 
-function updateHero(stock){
+function updateHero(){
+
+  const stock = stocks[0];
 
   if(!stock){
     return;
   }
 
-  document.getElementById("heroScore")
+  document
+    .getElementById("heroScore")
     .textContent =
       score(stock.scores?.total);
 
-  document.getElementById("heroName")
+  document
+    .getElementById("heroName")
     .textContent =
       `${stock.name || stock.symbol} · ${stock.symbol}`;
 
-  document.getElementById("heroValue")
+  document
+    .getElementById("heroValue")
     .textContent =
       score(stock.scores?.value);
 
-  document.getElementById("heroQuality")
+  document
+    .getElementById("heroQuality")
     .textContent =
       score(stock.scores?.quality);
 
-  document.getElementById("heroGrowth")
+  document
+    .getElementById("heroGrowth")
     .textContent =
       score(stock.scores?.growth);
 
-  document.getElementById("heroMomentum")
+  document
+    .getElementById("heroMomentum")
     .textContent =
       score(stock.scores?.momentum);
 
-  document.getElementById("heroRisk")
+  document
+    .getElementById("heroRisk")
     .textContent =
       score(stock.scores?.risk);
 
 }
 
 
-function render(list){
+function renderStocks(){
 
   const container =
     document.getElementById("stocks");
 
-  if(!list.length){
+  if(!stocks.length){
 
     container.innerHTML = `
       <div class="card">
-        Keine Aktie gefunden.
+        Keine Aktien geladen.
       </div>
     `;
 
@@ -713,18 +799,16 @@ function render(list){
 
 
   container.innerHTML =
-    list.map((stock,index)=>{
+    stocks.map((stock,index)=>{
 
       const symbol =
         escapeHTML(stock.symbol);
 
       const name =
         escapeHTML(
-          stock.name || stock.symbol
+          stock.name ||
+          stock.symbol
         );
-
-      const total =
-        score(stock.scores?.total);
 
       return `
         <div
@@ -779,14 +863,19 @@ function render(list){
             <div class="score-pill">
 
               <div class="score-circle">
-                ${total}
+                ${score(
+                  stock.scores?.total
+                )}
               </div>
 
               <div>
+
                 <b>PickZone</b>
+
                 <div class="small">
                   Score / 100
                 </div>
+
               </div>
 
             </div>
@@ -883,7 +972,7 @@ async function loadStock(symbol){
 
   if(!response.ok){
     throw new Error(
-      `Fehler bei ${symbol}`
+      `Aktie ${symbol} konnte nicht geladen werden.`
     );
   }
 
@@ -892,89 +981,252 @@ async function loadStock(symbol){
 }
 
 
-async function loadStocks(){
+async function loadDefaults(){
 
   const container =
     document.getElementById("stocks");
 
   container.innerHTML = `
     <div class="card loading">
-      Echte Börsendaten und Scores
-      werden geladen …
+      Kurse und Scores werden geladen …
+    </div>
+  `;
+
+  const results =
+    await Promise.allSettled(
+      defaultSymbols.map(
+        symbol =>
+          loadStock(symbol)
+      )
+    );
+
+  stocks =
+    results
+      .filter(
+        result =>
+          result.status ===
+          "fulfilled"
+      )
+      .map(
+        result =>
+          result.value
+      );
+
+  sortStocks();
+
+  updateHero();
+
+  renderStocks();
+
+}
+
+
+async function searchCompanies(query){
+
+  const response =
+    await fetch(
+      `/api/search?q=${
+        encodeURIComponent(query)
+      }`,
+      {
+        cache:"no-store"
+      }
+    );
+
+  if(!response.ok){
+    throw new Error(
+      "Suche nicht verfügbar."
+    );
+  }
+
+  return response.json();
+
+}
+
+
+function hideSearchResults(){
+
+  const box =
+    document.getElementById(
+      "searchResults"
+    );
+
+  box.classList.remove("show");
+
+  box.innerHTML = "";
+
+}
+
+
+function showSearchResults(results){
+
+  const box =
+    document.getElementById(
+      "searchResults"
+    );
+
+  if(!Array.isArray(results) ||
+     !results.length){
+
+    box.innerHTML = `
+      <div class="search-loading">
+        Keine Treffer gefunden.
+      </div>
+    `;
+
+    box.classList.add("show");
+
+    return;
+  }
+
+
+  box.innerHTML =
+    results.map(item=>{
+
+      const symbol =
+        escapeHTML(item.symbol);
+
+      const name =
+        escapeHTML(
+          item.name ||
+          item.symbol
+        );
+
+      const exchange =
+        escapeHTML(
+          item.exchange || ""
+        );
+
+      return `
+        <div
+          class="search-item"
+          data-symbol="${symbol}"
+        >
+
+          <div>
+
+            <div class="search-symbol">
+              ${symbol}
+            </div>
+
+            <div class="search-name">
+              ${name}
+            </div>
+
+          </div>
+
+          <div class="exchange">
+            ${exchange}
+          </div>
+
+        </div>
+      `;
+
+    }).join("");
+
+
+  box.classList.add("show");
+
+
+  box
+    .querySelectorAll(
+      ".search-item"
+    )
+    .forEach(item=>{
+
+      item.addEventListener(
+        "click",
+        async ()=>{
+
+          const symbol =
+            item.dataset.symbol;
+
+          await addStock(symbol);
+
+        }
+      );
+
+    });
+
+}
+
+
+async function addStock(symbol){
+
+  const message =
+    document.getElementById(
+      "searchMessage"
+    );
+
+  hideSearchResults();
+
+  document
+    .getElementById("search")
+    .value = "";
+
+
+  const existing =
+    stocks.find(
+      stock =>
+        stock.symbol === symbol
+    );
+
+
+  if(existing){
+
+    message.innerHTML = `
+      <div class="message">
+        ${escapeHTML(symbol)}
+        ist bereits im Ranking.
+      </div>
+    `;
+
+    return;
+  }
+
+
+  message.innerHTML = `
+    <div class="message">
+      ${escapeHTML(symbol)}
+      wird analysiert …
     </div>
   `;
 
 
   try{
 
-    const results =
-      await Promise.allSettled(
-        symbols.map(
-          symbol =>
-            loadStock(symbol)
-        )
-      );
+    const stock =
+      await loadStock(symbol);
+
+    stocks.push(stock);
+
+    sortStocks();
+
+    updateHero();
+
+    renderStocks();
 
 
-    stocks =
-      results
-        .filter(
-          result =>
-            result.status ===
-            "fulfilled"
-        )
-        .map(
-          result =>
-            result.value
-        );
-
-
-    if(!stocks.length){
-
-      throw new Error(
-        "Keine Daten verfügbar."
-      );
-
-    }
-
-
-    stocks.sort((a,b)=>{
-
-      const scoreA =
-        Number(a.scores?.total);
-
-      const scoreB =
-        Number(b.scores?.total);
-
-      const safeA =
-        Number.isFinite(scoreA)
-          ? scoreA
-          : -1;
-
-      const safeB =
-        Number.isFinite(scoreB)
-          ? scoreB
-          : -1;
-
-      return safeB - safeA;
-
-    });
-
-
-    updateHero(stocks[0]);
-
-    render(stocks);
+    message.innerHTML = `
+      <div class="message">
+        ${escapeHTML(
+          stock.name ||
+          stock.symbol
+        )}
+        wurde analysiert und
+        ins Ranking aufgenommen.
+      </div>
+    `;
 
 
   }catch(error){
 
     console.error(error);
 
-    container.innerHTML = `
-      <div class="card error">
-        Die PickZone-Daten konnten gerade
-        nicht geladen werden. Bitte
-        aktualisiere die Seite später erneut.
+    message.innerHTML = `
+      <div class="message error">
+        Diese Aktie konnte gerade
+        nicht analysiert werden.
       </div>
     `;
 
@@ -983,54 +1235,121 @@ async function loadStocks(){
 }
 
 
-document
-  .getElementById("search")
-  .addEventListener(
-    "input",
-    event => {
-
-      const query =
-        event.target.value
-          .trim()
-          .toLowerCase();
+const searchInput =
+  document.getElementById("search");
 
 
-      if(!query){
+searchInput.addEventListener(
+  "input",
+  ()=>{
 
-        render(stocks);
-        return;
-
-      }
-
-
-      const filtered =
-        stocks.filter(stock => {
-
-          const symbol =
-            String(
-              stock.symbol || ""
-            ).toLowerCase();
-
-          const name =
-            String(
-              stock.name || ""
-            ).toLowerCase();
-
-          return (
-            symbol.includes(query) ||
-            name.includes(query)
-          );
-
-        });
+    const query =
+      searchInput.value.trim();
 
 
-      render(filtered);
+    clearTimeout(searchTimer);
 
+
+    if(query.length < 2){
+
+      hideSearchResults();
+
+      return;
     }
-  );
 
 
-loadStocks();
+    const requestId =
+      ++searchRequest;
+
+
+    const box =
+      document.getElementById(
+        "searchResults"
+      );
+
+
+    box.innerHTML = `
+      <div class="search-loading">
+        Suche …
+      </div>
+    `;
+
+    box.classList.add("show");
+
+
+    searchTimer =
+      setTimeout(
+        async ()=>{
+
+          try{
+
+            const results =
+              await searchCompanies(
+                query
+              );
+
+
+            if(
+              requestId !==
+              searchRequest
+            ){
+              return;
+            }
+
+
+            showSearchResults(
+              results
+            );
+
+
+          }catch(error){
+
+            console.error(error);
+
+            box.innerHTML = `
+              <div class="search-loading">
+                Suche konnte nicht
+                geladen werden.
+              </div>
+            `;
+
+            box.classList.add(
+              "show"
+            );
+
+          }
+
+        },
+        450
+      );
+
+  }
+);
+
+
+document.addEventListener(
+  "click",
+  event=>{
+
+    const wrap =
+      document.querySelector(
+        ".search-wrap"
+      );
+
+    if(
+      wrap &&
+      !wrap.contains(
+        event.target
+      )
+    ){
+      hideSearchResults();
+    }
+
+  }
+);
+
+
+loadDefaults();
 
 </script>
 
