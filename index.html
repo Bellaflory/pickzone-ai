@@ -20,9 +20,7 @@ html,body{
 }
 
 body{min-height:100vh}
-
 button,input{font:inherit}
-
 button{cursor:pointer}
 
 .app{
@@ -104,9 +102,7 @@ h2{margin:0}
   outline:none;
 }
 
-.search:focus{
-  border-color:#7c5cff;
-}
+.search:focus{border-color:#7c5cff}
 
 .search-results{
   display:none;
@@ -134,11 +130,7 @@ h2{margin:0}
 }
 
 .search-item:last-child{border-bottom:0}
-
-.search-item:active{
-  background:#191e2b;
-}
-
+.search-item:active{background:#191e2b}
 .search-symbol{font-weight:800}
 
 .search-name{
@@ -212,9 +204,7 @@ h2{margin:0}
   font-size:20px;
 }
 
-.factor-wide{
-  grid-column:1/-1;
-}
+.factor-wide{grid-column:1/-1}
 
 .note{
   margin-top:14px;
@@ -241,6 +231,10 @@ h2{margin:0}
   border:1px solid #242a3b;
   border-radius:18px;
   background:#11151f;
+}
+
+.stock{
+  cursor:pointer;
 }
 
 .stock-main{
@@ -344,38 +338,6 @@ h2{margin:0}
   color:#ffd45c;
 }
 
-.details{
-  display:none;
-  margin-top:14px;
-  padding-top:14px;
-  border-top:1px solid #242a3b;
-}
-
-.stock.open .details{
-  display:block;
-}
-
-.detail-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:8px;
-}
-
-.detail{
-  padding:10px;
-  border-radius:11px;
-  background:#171c28;
-  color:#8991a5;
-  font-size:12px;
-}
-
-.detail b{
-  display:block;
-  margin-top:4px;
-  color:#fff;
-  font-size:17px;
-}
-
 .loading{
   padding:25px;
   text-align:center;
@@ -405,13 +367,137 @@ h2{margin:0}
   color:#ffd45c;
 }
 
-.empty h3{
-  margin:0 0 8px;
-}
+.empty h3{margin:0 0 8px}
 
 .view{display:none}
-
 .view.active{display:block}
+
+
+/* DETAILANSICHT */
+
+.detail-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:25px;
+}
+
+.back{
+  border:0;
+  background:#171c28;
+  color:#fff;
+  border-radius:12px;
+  padding:10px 14px;
+  font-weight:700;
+}
+
+.detail-title{
+  margin-top:18px;
+}
+
+.detail-symbol{
+  color:#8d75ff;
+  font-size:14px;
+  font-weight:800;
+}
+
+.detail-title h1{
+  margin:5px 0 10px;
+}
+
+.detail-price{
+  font-size:34px;
+  font-weight:850;
+}
+
+.detail-change{
+  margin-top:5px;
+  font-size:15px;
+}
+
+.detail-score-card{
+  margin-top:22px;
+  padding:20px;
+  border-radius:22px;
+  border:1px solid #242a3b;
+  background:linear-gradient(135deg,#191d2d,#10131d);
+}
+
+.detail-score-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.big-score{
+  margin-top:15px;
+  color:#8d75ff;
+  font-size:58px;
+  line-height:1;
+  font-weight:850;
+}
+
+.metric-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+  margin-top:12px;
+}
+
+.metric{
+  padding:13px;
+  border-radius:13px;
+  background:#151a25;
+  color:#8991a5;
+  font-size:12px;
+}
+
+.metric b{
+  display:block;
+  margin-top:5px;
+  color:#fff;
+  font-size:18px;
+}
+
+.factor-bar{
+  margin-top:14px;
+}
+
+.factor-row{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:6px;
+  font-size:13px;
+}
+
+.bar{
+  height:8px;
+  overflow:hidden;
+  border-radius:10px;
+  background:#202535;
+}
+
+.bar-fill{
+  height:100%;
+  border-radius:10px;
+  background:#8d75ff;
+}
+
+.detail-watch{
+  width:100%;
+  margin-top:15px;
+  padding:14px;
+  border:0;
+  border-radius:13px;
+  background:#272044;
+  color:#b4a5ff;
+  font-weight:800;
+}
+
+.detail-watch.saved{
+  background:#332b19;
+  color:#ffd45c;
+}
 
 nav{
   position:fixed;
@@ -444,9 +530,7 @@ nav .icon{
   font-size:20px;
 }
 
-nav button.active{
-  color:#9b86ff;
-}
+nav button.active{color:#9b86ff}
 
 @media(max-width:380px){
   .company{max-width:120px}
@@ -463,7 +547,7 @@ nav button.active{
 
 <div class="app">
 
-<header>
+<header id="mainHeader">
   <div class="logo">
     PickZone <span>AI</span>
   </div>
@@ -471,191 +555,229 @@ nav button.active{
 </header>
 
 
+<!-- HOME -->
+
 <div id="homeView" class="view active">
 
-  <div class="small">
-    PICKZONE MARKTÜBERSICHT
-  </div>
+<div class="small">
+  PICKZONE MARKTÜBERSICHT
+</div>
 
-  <h1>Top Picks</h1>
+<h1>Top Picks</h1>
 
-  <div class="status">
-    <span class="dot"></span>
-    Marktdaten & PickZone Score
-  </div>
-
-
-  <div class="search-wrap">
-
-    <input
-      id="search"
-      class="search"
-      type="search"
-      placeholder="Tesla, AAPL, AMD, Netflix …"
-      autocomplete="off"
-    >
-
-    <div
-      id="searchResults"
-      class="search-results"
-    ></div>
-
-  </div>
-
-  <div id="searchMessage"></div>
+<div class="status">
+  <span class="dot"></span>
+  Marktdaten & PickZone Score
+</div>
 
 
-  <div class="hero">
+<div class="search-wrap">
 
-    <div class="hero-top">
-      <div class="small">
-        HÖCHSTER GELADENER SCORE
-      </div>
+<input
+  id="search"
+  class="search"
+  type="search"
+  placeholder="Tesla, AAPL, AMD, Netflix …"
+  autocomplete="off"
+>
 
-      <div class="badge">
-        Score v1
-      </div>
-    </div>
-
-    <div
-      id="heroScore"
-      class="hero-score"
-    >
-      —
-    </div>
-
-    <div class="small">
-      PickZone Score / 100
-    </div>
-
-    <div
-      id="heroName"
-      class="hero-name"
-    >
-      Daten werden geladen …
-    </div>
-
-
-    <div class="factors">
-
-      <div class="factor">
-        Value
-        <b id="heroValue">—</b>
-      </div>
-
-      <div class="factor">
-        Quality
-        <b id="heroQuality">—</b>
-      </div>
-
-      <div class="factor">
-        Growth
-        <b id="heroGrowth">—</b>
-      </div>
-
-      <div class="factor">
-        Momentum
-        <b id="heroMomentum">—</b>
-      </div>
-
-      <div class="factor factor-wide">
-        Risk
-        <b id="heroRisk">—</b>
-      </div>
-
-    </div>
-
-    <div class="note">
-      Der PickZone Score ist ein regelbasierter
-      Modellscore aus verfügbaren Finanz- und
-      Kursdaten. Er ist keine Garantie für
-      zukünftige Renditen.
-    </div>
-
-  </div>
-
-
-  <div class="section">
-
-    <div class="section-title">
-      <h2>Ranking</h2>
-      <span class="badge">0–100</span>
-    </div>
-
-    <div id="stocks">
-      <div class="card loading">
-        Kurse und Scores werden geladen …
-      </div>
-    </div>
-
-  </div>
+<div
+  id="searchResults"
+  class="search-results"
+></div>
 
 </div>
 
+<div id="searchMessage"></div>
+
+
+<div class="hero">
+
+<div class="hero-top">
+
+<div class="small">
+  HÖCHSTER GELADENER SCORE
+</div>
+
+<div class="badge">
+  Score v1
+</div>
+
+</div>
+
+<div
+  id="heroScore"
+  class="hero-score"
+>
+—
+</div>
+
+<div class="small">
+  PickZone Score / 100
+</div>
+
+<div
+  id="heroName"
+  class="hero-name"
+>
+Daten werden geladen …
+</div>
+
+
+<div class="factors">
+
+<div class="factor">
+Value
+<b id="heroValue">—</b>
+</div>
+
+<div class="factor">
+Quality
+<b id="heroQuality">—</b>
+</div>
+
+<div class="factor">
+Growth
+<b id="heroGrowth">—</b>
+</div>
+
+<div class="factor">
+Momentum
+<b id="heroMomentum">—</b>
+</div>
+
+<div class="factor factor-wide">
+Risk
+<b id="heroRisk">—</b>
+</div>
+
+</div>
+
+<div class="note">
+Der PickZone Score ist ein regelbasierter
+Modellscore aus verfügbaren Finanz- und
+Kursdaten. Er ist keine Garantie für
+zukünftige Renditen.
+</div>
+
+</div>
+
+
+<div class="section">
+
+<div class="section-title">
+<h2>Ranking</h2>
+<span class="badge">0–100</span>
+</div>
+
+<div id="stocks">
+
+<div class="card loading">
+Kurse und Scores werden geladen …
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- WATCHLIST -->
 
 <div id="watchlistView" class="view">
 
-  <div class="small">
-    DEINE AUSWAHL
-  </div>
+<div class="small">
+DEINE AUSWAHL
+</div>
 
-  <h1>Watchlist</h1>
+<h1>Watchlist</h1>
 
-  <div class="status">
-    <span class="dot"></span>
-    Auf diesem Gerät gespeichert
-  </div>
+<div class="status">
+<span class="dot"></span>
+Auf diesem Gerät gespeichert
+</div>
 
-  <div class="section">
+<div class="section">
 
-    <div class="section-title">
-      <h2>Gespeicherte Aktien</h2>
-      <span
-        id="watchCount"
-        class="badge"
-      >
-        0
-      </span>
-    </div>
+<div class="section-title">
+<h2>Gespeicherte Aktien</h2>
+<span
+  id="watchCount"
+  class="badge"
+>
+0
+</span>
+</div>
 
-    <div id="watchlistStocks"></div>
-
-  </div>
+<div id="watchlistStocks"></div>
 
 </div>
 
 </div>
 
 
-<nav>
+<!-- DETAILANSICHT -->
+
+<div id="detailView" class="view">
+
+<div class="detail-header">
+
+<button
+  class="back"
+  onclick="closeDetail()"
+>
+← Zurück
+</button>
+
+<div class="logo">
+PickZone <span>AI</span>
+</div>
+
+</div>
+
+<div id="detailContent">
+
+<div class="card loading">
+Analyse wird geladen …
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<nav id="navigation">
 
 <button
   id="homeButton"
   class="active"
   onclick="showView('home')"
 >
-  <span class="icon">⌂</span>
-  Home
+<span class="icon">⌂</span>
+Home
 </button>
 
 <button
   onclick="showView('home');focusSearch()"
 >
-  <span class="icon">⌕</span>
-  Entdecken
+<span class="icon">⌕</span>
+Entdecken
 </button>
 
 <button
   id="watchButton"
   onclick="showView('watchlist')"
 >
-  <span class="icon">★</span>
-  Watchlist
+<span class="icon">★</span>
+Watchlist
 </button>
 
 <button>
-  <span class="icon">◉</span>
-  Strategien
+<span class="icon">◉</span>
+Strategien
 </button>
 
 </nav>
@@ -663,7 +785,7 @@ nav button.active{
 
 <script>
 
-const defaultSymbols = [
+const defaultSymbols=[
   "AAPL",
   "NVDA",
   "MSFT",
@@ -671,991 +793,1333 @@ const defaultSymbols = [
   "AMZN"
 ];
 
-let stocks = [];
+let stocks=[];
 
-let watchlist = loadWatchlist();
+let watchlist=loadWatchlist();
 
-let searchTimer = null;
+let searchTimer=null;
+let searchRequest=0;
 
-let searchRequest = 0;
+let previousView="home";
+let currentDetail=null;
 
 
 function loadWatchlist(){
 
-  try{
+try{
 
-    const stored =
-      JSON.parse(
-        localStorage.getItem(
-          "pickzone-watchlist"
-        ) || "[]"
-      );
+const stored=JSON.parse(
+localStorage.getItem(
+"pickzone-watchlist"
+)||"[]"
+);
 
-    return Array.isArray(stored)
-      ? stored
-      : [];
+return Array.isArray(stored)
+?stored
+:[];
 
-  }catch{
+}catch{
 
-    return [];
+return [];
 
-  }
+}
 
 }
 
 
 function saveWatchlist(){
 
-  localStorage.setItem(
-    "pickzone-watchlist",
-    JSON.stringify(watchlist)
-  );
+localStorage.setItem(
+"pickzone-watchlist",
+JSON.stringify(watchlist)
+);
 
 }
 
 
 function isSaved(symbol){
 
-  return watchlist.includes(symbol);
+return watchlist.includes(symbol);
 
 }
 
 
 function toggleWatchlist(symbol,event){
 
-  if(event){
-    event.stopPropagation();
-  }
+if(event){
+event.stopPropagation();
+}
 
-  if(isSaved(symbol)){
+if(isSaved(symbol)){
 
-    watchlist =
-      watchlist.filter(
-        item => item !== symbol
-      );
+watchlist=watchlist.filter(
+item=>item!==symbol
+);
 
-  }else{
+}else{
 
-    watchlist.push(symbol);
+watchlist.push(symbol);
 
-  }
+}
 
-  saveWatchlist();
+saveWatchlist();
 
-  renderStocks();
+renderStocks();
 
-  renderWatchlist();
+renderWatchlist();
+
+if(
+currentDetail &&
+currentDetail.symbol===symbol
+){
+renderDetail(currentDetail);
+}
 
 }
 
 
 function escapeHTML(value){
 
-  return String(value ?? "")
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
+return String(value??"")
+.replaceAll("&","&amp;")
+.replaceAll("<","&lt;")
+.replaceAll(">","&gt;")
+.replaceAll('"',"&quot;")
+.replaceAll("'","&#039;");
 
 }
 
 
 function money(value){
 
-  const number = Number(value);
+const number=Number(value);
 
-  if(!Number.isFinite(number)){
-    return "—";
-  }
+if(!Number.isFinite(number)){
+return "—";
+}
 
-  return new Intl.NumberFormat(
-    "de-DE",
-    {
-      style:"currency",
-      currency:"USD",
-      minimumFractionDigits:2,
-      maximumFractionDigits:2
-    }
-  ).format(number);
+return new Intl.NumberFormat(
+"de-DE",
+{
+style:"currency",
+currency:"USD",
+minimumFractionDigits:2,
+maximumFractionDigits:2
+}
+).format(number);
 
 }
 
 
 function percent(value){
 
-  const number = Number(value);
+const number=Number(value);
 
-  if(!Number.isFinite(number)){
-    return "—";
-  }
+if(!Number.isFinite(number)){
+return "—";
+}
 
-  const sign =
-    number > 0 ? "+" : "";
+const sign=
+number>0?"+":"";
 
-  return (
-    sign +
-    number.toFixed(2).replace(".",",") +
-    " %"
-  );
+return(
+sign+
+number.toFixed(2).replace(".",",")+
+" %"
+);
 
+}
+
+
+function ratio(value,digits=2){
+
+const number=Number(value);
+
+if(!Number.isFinite(number)){
+return "—";
+}
+
+return number
+.toFixed(digits)
+.replace(".",",");
 }
 
 
 function score(value){
 
-  const number = Number(value);
+const number=Number(value);
 
-  return Number.isFinite(number)
-    ? Math.round(number)
-    : "—";
+return Number.isFinite(number)
+?Math.round(number)
+:"—";
+
+}
+
+
+function safeScore(value){
+
+const number=Number(value);
+
+if(!Number.isFinite(number)){
+return 0;
+}
+
+return Math.max(
+0,
+Math.min(100,number)
+);
 
 }
 
 
 function changeClass(value){
 
-  const number = Number(value);
+const number=Number(value);
 
-  if(!Number.isFinite(number)){
-    return "neutral";
-  }
+if(!Number.isFinite(number)){
+return "neutral";
+}
 
-  if(number > 0){
-    return "up";
-  }
+if(number>0){
+return "up";
+}
 
-  if(number < 0){
-    return "down";
-  }
+if(number<0){
+return "down";
+}
 
-  return "neutral";
+return "neutral";
 
 }
 
 
 function sortStocks(){
 
-  stocks.sort((a,b)=>{
+stocks.sort((a,b)=>{
 
-    const aScore =
-      Number(a.scores?.total);
+const aScore=
+Number(a.scores?.total);
 
-    const bScore =
-      Number(b.scores?.total);
+const bScore=
+Number(b.scores?.total);
 
-    return (
-      (Number.isFinite(bScore) ? bScore : -1)
-      -
-      (Number.isFinite(aScore) ? aScore : -1)
-    );
+return(
+(Number.isFinite(bScore)?bScore:-1)
+-
+(Number.isFinite(aScore)?aScore:-1)
+);
 
-  });
+});
 
 }
 
 
 function updateHero(){
 
-  const stock = stocks[0];
+const stock=stocks[0];
 
-  if(!stock){
-    return;
-  }
+if(!stock){
+return;
+}
 
-  document.getElementById("heroScore")
-    .textContent =
-      score(stock.scores?.total);
+document.getElementById(
+"heroScore"
+).textContent=
+score(stock.scores?.total);
 
-  document.getElementById("heroName")
-    .textContent =
-      `${stock.name || stock.symbol} · ${stock.symbol}`;
+document.getElementById(
+"heroName"
+).textContent=
+`${stock.name||stock.symbol} · ${stock.symbol}`;
 
-  document.getElementById("heroValue")
-    .textContent =
-      score(stock.scores?.value);
+document.getElementById(
+"heroValue"
+).textContent=
+score(stock.scores?.value);
 
-  document.getElementById("heroQuality")
-    .textContent =
-      score(stock.scores?.quality);
+document.getElementById(
+"heroQuality"
+).textContent=
+score(stock.scores?.quality);
 
-  document.getElementById("heroGrowth")
-    .textContent =
-      score(stock.scores?.growth);
+document.getElementById(
+"heroGrowth"
+).textContent=
+score(stock.scores?.growth);
 
-  document.getElementById("heroMomentum")
-    .textContent =
-      score(stock.scores?.momentum);
+document.getElementById(
+"heroMomentum"
+).textContent=
+score(stock.scores?.momentum);
 
-  document.getElementById("heroRisk")
-    .textContent =
-      score(stock.scores?.risk);
+document.getElementById(
+"heroRisk"
+).textContent=
+score(stock.scores?.risk);
 
 }
 
 
 function stockHTML(stock,index,showRank=true){
 
-  const symbol =
-    escapeHTML(stock.symbol);
+const symbol=
+escapeHTML(stock.symbol);
 
-  const name =
-    escapeHTML(
-      stock.name || stock.symbol
-    );
+const name=
+escapeHTML(
+stock.name||stock.symbol
+);
 
-  const saved =
-    isSaved(stock.symbol);
+const saved=
+isSaved(stock.symbol);
 
-  return `
-    <div
-      class="card stock"
-      onclick="this.classList.toggle('open')"
-    >
+return`
+<div
+class="card stock"
+onclick="openDetail('${symbol}')"
+>
 
-      <div class="stock-main">
+<div class="stock-main">
 
-        <div class="stock-left">
+<div class="stock-left">
 
-          <div class="symbol">
-            ${symbol}
-          </div>
+<div class="symbol">
+${symbol}
+</div>
 
-          <div>
+<div>
 
-            <div class="company">
-              ${name}
-            </div>
+<div class="company">
+${name}
+</div>
 
-            <div class="small">
-              ${symbol}
-            </div>
+<div class="small">
+${symbol}
+</div>
 
-          </div>
+</div>
 
-        </div>
-
-
-        <div class="price">
-
-          ${money(stock.price)}
-
-          <div
-            class="change ${changeClass(
-              stock.changePercentage
-            )}"
-          >
-            ${percent(
-              stock.changePercentage
-            )}
-          </div>
-
-        </div>
-
-      </div>
+</div>
 
 
-      <div class="stock-bottom">
+<div class="price">
 
-        <div class="score-pill">
+${money(stock.price)}
 
-          <div class="score-circle">
-            ${score(
-              stock.scores?.total
-            )}
-          </div>
+<div
+class="change ${changeClass(
+stock.changePercentage
+)}"
+>
+${percent(
+stock.changePercentage
+)}
+</div>
 
-          <div>
-            <b>PickZone</b>
-            <div class="small">
-              Score / 100
-            </div>
-          </div>
+</div>
 
-        </div>
-
-
-        <div class="stock-actions">
-
-          ${
-            showRank
-            ? `<div class="rank">#${index + 1}</div>`
-            : ""
-          }
-
-          <button
-            class="star ${saved ? "saved" : ""}"
-            onclick="toggleWatchlist(
-              '${symbol}',
-              event
-            )"
-            aria-label="Watchlist"
-          >
-            ${saved ? "★" : "☆"}
-          </button>
-
-        </div>
-
-      </div>
+</div>
 
 
-      <div class="details">
+<div class="stock-bottom">
 
-        <div class="detail-grid">
+<div class="score-pill">
 
-          <div class="detail">
-            Value
-            <b>
-              ${score(stock.scores?.value)}
-            </b>
-          </div>
+<div class="score-circle">
+${score(stock.scores?.total)}
+</div>
 
-          <div class="detail">
-            Quality
-            <b>
-              ${score(stock.scores?.quality)}
-            </b>
-          </div>
+<div>
+<b>PickZone</b>
+<div class="small">
+Score / 100
+</div>
+</div>
 
-          <div class="detail">
-            Growth
-            <b>
-              ${score(stock.scores?.growth)}
-            </b>
-          </div>
+</div>
 
-          <div class="detail">
-            Momentum
-            <b>
-              ${score(stock.scores?.momentum)}
-            </b>
-          </div>
 
-          <div class="detail">
-            Risk
-            <b>
-              ${score(stock.scores?.risk)}
-            </b>
-          </div>
+<div class="stock-actions">
 
-          <div class="detail">
-            6M Momentum
-            <b>
-              ${percent(
-                stock.marketFactors
-                  ?.momentum6m
-              )}
-            </b>
-          </div>
+${
+showRank
+?`<div class="rank">#${index+1}</div>`
+:""
+}
 
-        </div>
+<button
+class="star ${saved?"saved":""}"
+onclick="toggleWatchlist(
+'${symbol}',
+event
+)"
+>
+${saved?"★":"☆"}
+</button>
 
-      </div>
+</div>
 
-    </div>
-  `;
+</div>
+
+</div>
+`;
 
 }
 
 
 function renderStocks(){
 
-  const container =
-    document.getElementById("stocks");
+const container=
+document.getElementById("stocks");
 
-  if(!stocks.length){
+if(!stocks.length){
 
-    container.innerHTML = `
-      <div class="card">
-        Keine Aktien geladen.
-      </div>
-    `;
+container.innerHTML=`
+<div class="card">
+Keine Aktien geladen.
+</div>
+`;
 
-    return;
-  }
+return;
+}
 
-  container.innerHTML =
-    stocks
-      .map(
-        (stock,index) =>
-          stockHTML(
-            stock,
-            index,
-            true
-          )
-      )
-      .join("");
+container.innerHTML=
+stocks.map(
+(stock,index)=>
+stockHTML(stock,index,true)
+).join("");
 
 }
 
 
 async function renderWatchlist(){
 
-  const container =
-    document.getElementById(
-      "watchlistStocks"
-    );
+const container=
+document.getElementById(
+"watchlistStocks"
+);
 
-  document.getElementById(
-    "watchCount"
-  ).textContent =
-    watchlist.length;
-
-
-  if(!watchlist.length){
-
-    container.innerHTML = `
-      <div class="card empty">
-
-        <div class="empty-star">
-          ☆
-        </div>
-
-        <h3>
-          Noch keine Aktien gespeichert
-        </h3>
-
-        <div class="small">
-          Tippe bei einer Aktie auf den Stern,
-          um sie deiner Watchlist hinzuzufügen.
-        </div>
-
-      </div>
-    `;
-
-    return;
-  }
+document.getElementById(
+"watchCount"
+).textContent=
+watchlist.length;
 
 
-  container.innerHTML = `
-    <div class="card loading">
-      Watchlist wird geladen …
-    </div>
-  `;
+if(!watchlist.length){
+
+container.innerHTML=`
+<div class="card empty">
+
+<div class="empty-star">☆</div>
+
+<h3>
+Noch keine Aktien gespeichert
+</h3>
+
+<div class="small">
+Tippe bei einer Aktie auf den Stern,
+um sie deiner Watchlist hinzuzufügen.
+</div>
+
+</div>
+`;
+
+return;
+}
 
 
-  const results =
-    await Promise.allSettled(
-      watchlist.map(
-        symbol =>
-          loadStock(symbol)
-      )
-    );
+container.innerHTML=`
+<div class="card loading">
+Watchlist wird geladen …
+</div>
+`;
 
 
-  const savedStocks =
-    results
-      .filter(
-        result =>
-          result.status ===
-          "fulfilled"
-      )
-      .map(
-        result =>
-          result.value
-      );
+const results=
+await Promise.allSettled(
+watchlist.map(
+symbol=>loadStock(symbol)
+)
+);
 
 
-  savedStocks.sort((a,b)=>
-    Number(b.scores?.total || 0)
-    -
-    Number(a.scores?.total || 0)
-  );
+const savedStocks=
+results
+.filter(
+result=>
+result.status==="fulfilled"
+)
+.map(
+result=>result.value
+);
 
 
-  if(!savedStocks.length){
-
-    container.innerHTML = `
-      <div class="card error">
-        Die Watchlist konnte gerade
-        nicht geladen werden.
-      </div>
-    `;
-
-    return;
-  }
+savedStocks.sort(
+(a,b)=>
+Number(b.scores?.total||0)
+-
+Number(a.scores?.total||0)
+);
 
 
-  container.innerHTML =
-    savedStocks
-      .map(
-        (stock,index) =>
-          stockHTML(
-            stock,
-            index,
-            false
-          )
-      )
-      .join("");
+container.innerHTML=
+savedStocks.map(
+(stock,index)=>
+stockHTML(stock,index,false)
+).join("");
+
+}
+
+
+function factorBar(name,value){
+
+return`
+<div class="factor-bar">
+
+<div class="factor-row">
+
+<span>${name}</span>
+
+<b>
+${score(value)} / 100
+</b>
+
+</div>
+
+<div class="bar">
+
+<div
+class="bar-fill"
+style="width:${safeScore(value)}%"
+></div>
+
+</div>
+
+</div>
+`;
+
+}
+
+
+function renderDetail(stock){
+
+currentDetail=stock;
+
+const saved=
+isSaved(stock.symbol);
+
+const f=
+stock.fundamentals||{};
+
+const m=
+stock.marketFactors||{};
+
+const container=
+document.getElementById(
+"detailContent"
+);
+
+
+container.innerHTML=`
+
+<div class="detail-title">
+
+<div class="detail-symbol">
+${escapeHTML(stock.symbol)}
+</div>
+
+<h1>
+${escapeHTML(
+stock.name||stock.symbol
+)}
+</h1>
+
+<div class="detail-price">
+${money(stock.price)}
+</div>
+
+<div
+class="detail-change ${changeClass(
+stock.changePercentage
+)}"
+>
+${percent(
+stock.changePercentage
+)}
+heute
+</div>
+
+</div>
+
+
+<div class="detail-score-card">
+
+<div class="detail-score-top">
+
+<div>
+
+<div class="small">
+PICKZONE SCORE
+</div>
+
+<div class="big-score">
+${score(stock.scores?.total)}
+</div>
+
+<div class="small">
+von 100
+</div>
+
+</div>
+
+<div class="badge">
+Score v1
+</div>
+
+</div>
+
+
+${factorBar(
+"Value",
+stock.scores?.value
+)}
+
+${factorBar(
+"Quality",
+stock.scores?.quality
+)}
+
+${factorBar(
+"Growth",
+stock.scores?.growth
+)}
+
+${factorBar(
+"Momentum",
+stock.scores?.momentum
+)}
+
+${factorBar(
+"Risk",
+stock.scores?.risk
+)}
+
+
+<button
+class="detail-watch ${
+saved?"saved":""
+}"
+onclick="toggleWatchlist(
+'${escapeHTML(stock.symbol)}',
+event
+)"
+>
+${
+saved
+?"★ In Watchlist gespeichert"
+:"☆ Zur Watchlist hinzufügen"
+}
+</button>
+
+</div>
+
+
+<div class="section">
+
+<div class="section-title">
+
+<h2>
+Fundamentaldaten
+</h2>
+
+<span class="badge">
+Analyse
+</span>
+
+</div>
+
+
+<div class="metric-grid">
+
+<div class="metric">
+KGV
+<b>
+${ratio(f.peRatio)}
+</b>
+</div>
+
+<div class="metric">
+Kurs / Buchwert
+<b>
+${ratio(f.priceToBook)}
+</b>
+</div>
+
+<div class="metric">
+Nettomarge
+<b>
+${
+Number.isFinite(
+Number(f.netMargin)
+)
+?percent(
+Number(f.netMargin)*100
+)
+:"—"
+}
+</b>
+</div>
+
+<div class="metric">
+ROE
+<b>
+${
+Number.isFinite(
+Number(f.returnOnEquity)
+)
+?percent(
+Number(f.returnOnEquity)*100
+)
+:"—"
+}
+</b>
+</div>
+
+<div class="metric">
+Debt / Equity
+<b>
+${ratio(f.debtToEquity)}
+</b>
+</div>
+
+<div class="metric">
+Current Ratio
+<b>
+${ratio(f.currentRatio)}
+</b>
+</div>
+
+<div class="metric">
+Umsatzwachstum
+<b>
+${percent(
+f.revenueGrowth
+)}
+</b>
+</div>
+
+<div class="metric">
+Gewinnwachstum
+<b>
+${percent(
+f.earningsGrowth
+)}
+</b>
+</div>
+
+</div>
+
+</div>
+
+
+<div class="section">
+
+<div class="section-title">
+
+<h2>
+Marktfaktoren
+</h2>
+
+</div>
+
+
+<div class="metric-grid">
+
+<div class="metric">
+6M Momentum
+<b>
+${percent(
+m.momentum6m
+)}
+</b>
+</div>
+
+<div class="metric">
+Volatilität
+<b>
+${percent(
+m.volatility
+)}
+</b>
+</div>
+
+</div>
+
+
+<div class="note">
+
+Der Score basiert auf der aktuellen
+PickZone-v1-Methodik. Kennzahlen und
+historische Kursdaten können sich
+ändern. Der Score ist keine Prognose
+für die zukünftige Kursentwicklung.
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+async function openDetail(symbol){
+
+previousView=
+document.getElementById(
+"watchlistView"
+).classList.contains("active")
+?"watchlist"
+:"home";
+
+
+document
+.querySelectorAll(".view")
+.forEach(
+element=>
+element.classList.remove("active")
+);
+
+
+document.getElementById(
+"detailView"
+).classList.add("active");
+
+
+document.getElementById(
+"mainHeader"
+).style.display="none";
+
+
+document.getElementById(
+"navigation"
+).style.display="none";
+
+
+document.getElementById(
+"detailContent"
+).innerHTML=`
+<div class="card loading">
+Analyse wird geladen …
+</div>
+`;
+
+
+window.scrollTo(0,0);
+
+
+let stock=
+stocks.find(
+item=>item.symbol===symbol
+);
+
+
+try{
+
+if(!stock){
+stock=await loadStock(symbol);
+}
+
+renderDetail(stock);
+
+}catch(error){
+
+document.getElementById(
+"detailContent"
+).innerHTML=`
+<div class="card error">
+Die Analyse konnte gerade
+nicht geladen werden.
+</div>
+`;
+
+}
+
+}
+
+
+function closeDetail(){
+
+document.getElementById(
+"detailView"
+).classList.remove("active");
+
+
+document.getElementById(
+"mainHeader"
+).style.display="flex";
+
+
+document.getElementById(
+"navigation"
+).style.display="flex";
+
+
+showView(previousView);
 
 }
 
 
 async function loadStock(symbol){
 
-  const response =
-    await fetch(
-      `/api/stock?symbol=${
-        encodeURIComponent(symbol)
-      }`,
-      {
-        cache:"no-store"
-      }
-    );
+const response=
+await fetch(
+`/api/stock?symbol=${
+encodeURIComponent(symbol)
+}`,
+{
+cache:"no-store"
+}
+);
 
-  if(!response.ok){
-    throw new Error(
-      `Fehler bei ${symbol}`
-    );
-  }
+if(!response.ok){
+throw new Error(
+`Fehler bei ${symbol}`
+);
+}
 
-  return response.json();
+return response.json();
 
 }
 
 
 async function loadDefaults(){
 
-  const container =
-    document.getElementById("stocks");
+const container=
+document.getElementById("stocks");
 
-  container.innerHTML = `
-    <div class="card loading">
-      Kurse und Scores werden geladen …
-    </div>
-  `;
-
-
-  const results =
-    await Promise.allSettled(
-      defaultSymbols.map(
-        symbol =>
-          loadStock(symbol)
-      )
-    );
+container.innerHTML=`
+<div class="card loading">
+Kurse und Scores werden geladen …
+</div>
+`;
 
 
-  stocks =
-    results
-      .filter(
-        result =>
-          result.status ===
-          "fulfilled"
-      )
-      .map(
-        result =>
-          result.value
-      );
+const results=
+await Promise.allSettled(
+defaultSymbols.map(
+symbol=>loadStock(symbol)
+)
+);
 
 
-  sortStocks();
+stocks=
+results
+.filter(
+result=>
+result.status==="fulfilled"
+)
+.map(
+result=>result.value
+);
 
-  updateHero();
 
-  renderStocks();
+sortStocks();
+updateHero();
+renderStocks();
 
 }
 
 
 async function searchCompanies(query){
 
-  const response =
-    await fetch(
-      `/api/search?q=${
-        encodeURIComponent(query)
-      }`,
-      {
-        cache:"no-store"
-      }
-    );
+const response=
+await fetch(
+`/api/search?q=${
+encodeURIComponent(query)
+}`,
+{
+cache:"no-store"
+}
+);
 
-  if(!response.ok){
-    throw new Error(
-      "Suche nicht verfügbar."
-    );
-  }
+if(!response.ok){
+throw new Error(
+"Suche nicht verfügbar."
+);
+}
 
-  return response.json();
+return response.json();
 
 }
 
 
 function hideSearchResults(){
 
-  const box =
-    document.getElementById(
-      "searchResults"
-    );
+const box=
+document.getElementById(
+"searchResults"
+);
 
-  box.classList.remove("show");
+box.classList.remove("show");
 
-  box.innerHTML = "";
+box.innerHTML="";
 
 }
 
 
 function showSearchResults(results){
 
-  const box =
-    document.getElementById(
-      "searchResults"
-    );
+const box=
+document.getElementById(
+"searchResults"
+);
 
 
-  if(
-    !Array.isArray(results) ||
-    !results.length
-  ){
+if(
+!Array.isArray(results)||
+!results.length
+){
 
-    box.innerHTML = `
-      <div class="search-name"
-           style="padding:15px">
-        Keine Treffer gefunden.
-      </div>
-    `;
+box.innerHTML=`
+<div
+class="search-name"
+style="padding:15px"
+>
+Keine Treffer gefunden.
+</div>
+`;
 
-    box.classList.add("show");
+box.classList.add("show");
 
-    return;
-  }
-
-
-  box.innerHTML =
-    results.map(item=>{
-
-      const symbol =
-        escapeHTML(item.symbol);
-
-      const name =
-        escapeHTML(
-          item.name || item.symbol
-        );
-
-      const exchange =
-        escapeHTML(
-          item.exchange || ""
-        );
-
-      return `
-        <div
-          class="search-item"
-          data-symbol="${symbol}"
-        >
-
-          <div>
-            <div class="search-symbol">
-              ${symbol}
-            </div>
-
-            <div class="search-name">
-              ${name}
-            </div>
-          </div>
-
-          <div class="exchange">
-            ${exchange}
-          </div>
-
-        </div>
-      `;
-
-    }).join("");
+return;
+}
 
 
-  box.classList.add("show");
+box.innerHTML=
+results.map(item=>{
+
+const symbol=
+escapeHTML(item.symbol);
+
+const name=
+escapeHTML(
+item.name||item.symbol
+);
+
+const exchange=
+escapeHTML(
+item.exchange||""
+);
+
+return`
+<div
+class="search-item"
+data-symbol="${symbol}"
+>
+
+<div>
+
+<div class="search-symbol">
+${symbol}
+</div>
+
+<div class="search-name">
+${name}
+</div>
+
+</div>
+
+<div class="exchange">
+${exchange}
+</div>
+
+</div>
+`;
+
+}).join("");
 
 
-  box
-    .querySelectorAll(".search-item")
-    .forEach(item=>{
+box.classList.add("show");
 
-      item.addEventListener(
-        "click",
-        async ()=>{
 
-          await addStock(
-            item.dataset.symbol
-          );
+box
+.querySelectorAll(".search-item")
+.forEach(item=>{
 
-        }
-      );
+item.addEventListener(
+"click",
+async()=>{
 
-    });
+await addStock(
+item.dataset.symbol
+);
+
+}
+);
+
+});
 
 }
 
 
 async function addStock(symbol){
 
-  hideSearchResults();
+hideSearchResults();
 
-  document.getElementById(
-    "search"
-  ).value = "";
-
-
-  const message =
-    document.getElementById(
-      "searchMessage"
-    );
+document.getElementById(
+"search"
+).value="";
 
 
-  const existing =
-    stocks.find(
-      stock =>
-        stock.symbol === symbol
-    );
+const message=
+document.getElementById(
+"searchMessage"
+);
 
 
-  if(existing){
-
-    message.innerHTML = `
-      <div class="message">
-        ${escapeHTML(symbol)}
-        ist bereits im Ranking.
-      </div>
-    `;
-
-    return;
-  }
+const existing=
+stocks.find(
+stock=>stock.symbol===symbol
+);
 
 
-  message.innerHTML = `
-    <div class="message">
-      ${escapeHTML(symbol)}
-      wird analysiert …
-    </div>
-  `;
+if(existing){
+
+message.innerHTML=`
+<div class="message">
+${escapeHTML(symbol)}
+ist bereits im Ranking.
+</div>
+`;
+
+openDetail(symbol);
+
+return;
+}
 
 
-  try{
-
-    const stock =
-      await loadStock(symbol);
-
-    stocks.push(stock);
-
-    sortStocks();
-
-    updateHero();
-
-    renderStocks();
+message.innerHTML=`
+<div class="message">
+${escapeHTML(symbol)}
+wird analysiert …
+</div>
+`;
 
 
-    message.innerHTML = `
-      <div class="message">
-        ${escapeHTML(
-          stock.name || stock.symbol
-        )}
-        wurde ins Ranking aufgenommen.
-        Tippe auf ☆, um die Aktie
-        dauerhaft zu speichern.
-      </div>
-    `;
+try{
+
+const stock=
+await loadStock(symbol);
+
+stocks.push(stock);
+
+sortStocks();
+updateHero();
+renderStocks();
 
 
-  }catch(error){
+message.innerHTML=`
+<div class="message">
+${escapeHTML(
+stock.name||stock.symbol
+)}
+wurde ins Ranking aufgenommen.
+</div>
+`;
 
-    console.error(error);
 
-    message.innerHTML = `
-      <div class="message error">
-        Diese Aktie konnte gerade
-        nicht analysiert werden.
-      </div>
-    `;
+}catch(error){
 
-  }
+message.innerHTML=`
+<div class="message error">
+Diese Aktie konnte gerade
+nicht analysiert werden.
+</div>
+`;
+
+}
 
 }
 
 
 function showView(view){
 
-  document
-    .querySelectorAll(".view")
-    .forEach(element =>
-      element.classList.remove(
-        "active"
-      )
-    );
+document
+.querySelectorAll(".view")
+.forEach(
+element=>
+element.classList.remove("active")
+);
 
 
-  document
-    .querySelectorAll("nav button")
-    .forEach(button =>
-      button.classList.remove(
-        "active"
-      )
-    );
+document
+.querySelectorAll("nav button")
+.forEach(
+button=>
+button.classList.remove("active")
+);
 
 
-  if(view === "watchlist"){
-
-    document
-      .getElementById(
-        "watchlistView"
-      )
-      .classList.add("active");
-
-    document
-      .getElementById(
-        "watchButton"
-      )
-      .classList.add("active");
-
-    renderWatchlist();
-
-  }else{
-
-    document
-      .getElementById(
-        "homeView"
-      )
-      .classList.add("active");
-
-    document
-      .getElementById(
-        "homeButton"
-      )
-      .classList.add("active");
-
-  }
+document.getElementById(
+"mainHeader"
+).style.display="flex";
 
 
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
+document.getElementById(
+"navigation"
+).style.display="flex";
+
+
+if(view==="watchlist"){
+
+document.getElementById(
+"watchlistView"
+).classList.add("active");
+
+document.getElementById(
+"watchButton"
+).classList.add("active");
+
+renderWatchlist();
+
+}else{
+
+document.getElementById(
+"homeView"
+).classList.add("active");
+
+document.getElementById(
+"homeButton"
+).classList.add("active");
+
+}
+
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
 
 }
 
 
 function focusSearch(){
 
-  setTimeout(()=>{
+setTimeout(()=>{
 
-    document
-      .getElementById("search")
-      .focus();
+document.getElementById(
+"search"
+).focus();
 
-  },100);
+},100);
 
 }
 
 
-const searchInput =
-  document.getElementById(
-    "search"
-  );
+const searchInput=
+document.getElementById(
+"search"
+);
 
 
 searchInput.addEventListener(
-  "input",
-  ()=>{
+"input",
+()=>{
 
-    const query =
-      searchInput.value.trim();
+const query=
+searchInput.value.trim();
 
-    clearTimeout(searchTimer);
-
-
-    if(query.length < 2){
-
-      hideSearchResults();
-
-      return;
-    }
+clearTimeout(searchTimer);
 
 
-    const requestId =
-      ++searchRequest;
+if(query.length<2){
+
+hideSearchResults();
+
+return;
+}
 
 
-    const box =
-      document.getElementById(
-        "searchResults"
-      );
+const requestId=
+++searchRequest;
 
 
-    box.innerHTML = `
-      <div
-        class="search-name"
-        style="padding:15px"
-      >
-        Suche …
-      </div>
-    `;
-
-    box.classList.add("show");
+const box=
+document.getElementById(
+"searchResults"
+);
 
 
-    searchTimer =
-      setTimeout(
-        async ()=>{
+box.innerHTML=`
+<div
+class="search-name"
+style="padding:15px"
+>
+Suche …
+</div>
+`;
 
-          try{
-
-            const results =
-              await searchCompanies(
-                query
-              );
-
-
-            if(
-              requestId !==
-              searchRequest
-            ){
-              return;
-            }
+box.classList.add("show");
 
 
-            showSearchResults(
-              results
-            );
+searchTimer=setTimeout(
+async()=>{
+
+try{
+
+const results=
+await searchCompanies(query);
 
 
-          }catch(error){
+if(
+requestId!==searchRequest
+){
+return;
+}
 
-            console.error(error);
 
-            box.innerHTML = `
-              <div
-                class="search-name"
-                style="padding:15px"
-              >
-                Suche konnte nicht
-                geladen werden.
-              </div>
-            `;
+showSearchResults(results);
 
-          }
 
-        },
-        450
-      );
+}catch(error){
 
-  }
+box.innerHTML=`
+<div
+class="search-name"
+style="padding:15px"
+>
+Suche konnte nicht geladen werden.
+</div>
+`;
+
+}
+
+},
+450
+);
+
+}
 );
 
 
 document.addEventListener(
-  "click",
-  event=>{
+"click",
+event=>{
 
-    const wrap =
-      document.querySelector(
-        ".search-wrap"
-      );
+const wrap=
+document.querySelector(
+".search-wrap"
+);
 
-    if(
-      wrap &&
-      !wrap.contains(event.target)
-    ){
-      hideSearchResults();
-    }
+if(
+wrap &&
+!wrap.contains(event.target)
+){
+hideSearchResults();
+}
 
-  }
+}
 );
 
 
